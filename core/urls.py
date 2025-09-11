@@ -20,9 +20,13 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from boards.views import BoardViewSet
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from tasksapp.views import ListViewSet
+
 
 router = DefaultRouter()
 router.register("boards", BoardViewSet, basename="board")
+router.register("lists", ListViewSet, basename="list")
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
