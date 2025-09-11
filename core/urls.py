@@ -21,11 +21,15 @@ from rest_framework.routers import DefaultRouter
 from boards.views import BoardViewSet
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from tasksapp.views import ListViewSet
+from tasksapp.views import TaskViewSet
+
 
 
 router = DefaultRouter()
 router.register("boards", BoardViewSet, basename="board")
 router.register("lists", ListViewSet, basename="list")
+router.register("tasks", TaskViewSet, basename="task")
+
 
 
 urlpatterns = [
