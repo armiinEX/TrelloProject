@@ -21,6 +21,11 @@ class Board(models.Model):
         self.full_clean()
         super().save(*args, **kwargs)
 
+    def clean(self):
+        if Board.objects.filter(owner=self.owner).count() >= 5 and not self.pk:
+            raise ValidationError(_("You have reached the maximum number of boards (5)."))
+
+
 class BoardMembership(models.Model):
     ROLE_CHOICES = [("owner", "Owner"), ("member", "Member")]
     STATUS_CHOICES = [("accepted", "Accepted")]  # invitations later
@@ -40,6 +45,12 @@ class BoardMembership(models.Model):
             raise ValidationError("This board already has maximum number of members (10).")
         if BoardMembership.objects.filter(user=self.user).count() >= 15 and not self.pk:
             raise ValidationError("You have reached the maximum number of board memberships (15).")
+
+    def clean(self):
+        if BoardMembership.objects.filter(board=self.board).count() >= 10 and not self.pk:
+            raise ValidationError(_("This board already has maximum number of members (10)."))
+        if BoardMembership.objects.filter(user=self.user).count() >= 15 and not self.pk:
+            raise ValidationError(_("You have reached the maximum number of board memberships (15)."))
 
     def save(self, *args, **kwargs):
         self.full_clean()
