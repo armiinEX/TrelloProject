@@ -1,10 +1,12 @@
 # boards/views.py
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import render
 
 from .models import Board, BoardMembership
 from .serializers import BoardSerializer
 from .permissions import IsOwnerOrReadOnly
+
 
 class BoardViewSet(viewsets.ModelViewSet):
     serializer_class = BoardSerializer
@@ -20,7 +22,7 @@ class BoardViewSet(viewsets.ModelViewSet):
             memberships__status="accepted"
         )
         qs2 = Board.objects.filter(owner=self.request.user)
-        return qs1.union(qs2)  # ❌ دیگر خطای unique/non-unique نمی‌دهد
+        return qs1.union(qs2)  # union → دیگر خطای unique/non-unique نمی‌دهد
 
     def perform_create(self, serializer):
         board = serializer.save(owner=self.request.user)
@@ -29,3 +31,8 @@ class BoardViewSet(viewsets.ModelViewSet):
             user=self.request.user,
             defaults={"role": "owner", "status": "accepted"}
         )
+
+
+def board_list_view(request):
+    boards = Board.objects.filter(memberships__user=request.user)
+    return render(request, "boards/board_list.html", {"boards": boards})

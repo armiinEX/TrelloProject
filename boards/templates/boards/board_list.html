@@ -1,0 +1,6 @@
+<h1>Your Boards</h1>
+<ul>
+  {% for board in boards %}
+    <li>{{ board.name }} ({{ board.color }})</li>
+  {% endfor %}
+</ul>

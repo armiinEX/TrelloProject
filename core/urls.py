@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from boards.views import BoardViewSet
+from boards.views import BoardViewSet, board_list_view
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from tasksapp.views import ListViewSet
 from tasksapp.views import TaskViewSet
@@ -38,4 +38,6 @@ urlpatterns = [
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
     path("api/", include(router.urls)),
     path("i18n/", include("django.conf.urls.i18n")),   # برای set-language در روز 5
+    path("boards-ui/", board_list_view, name="board_list_ui"),
+
 ]
