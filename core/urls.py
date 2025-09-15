@@ -39,5 +39,6 @@ urlpatterns = [
     path("api/", include(router.urls)),
     path("i18n/", include("django.conf.urls.i18n")),   # برای set-language در روز 5
     path("boards-ui/", board_list_view, name="board_list_ui"),
+    path("boards/", include("boards.urls")),  # 👈 این باید باشه
 
 ]

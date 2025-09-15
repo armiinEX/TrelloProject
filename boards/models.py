@@ -32,7 +32,11 @@ class Board(models.Model):
 
 class BoardMembership(models.Model):
     ROLE_CHOICES = [("owner", "Owner"), ("member", "Member")]
-    STATUS_CHOICES = [("accepted", "Accepted")]  # invitations later
+    STATUS_CHOICES = [
+    ("pending", "Pending"),
+    ("accepted", "Accepted"),
+    ("rejected", "Rejected"),
+    ]
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -45,7 +49,7 @@ class BoardMembership(models.Model):
         related_name="memberships"
     )
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default="member")
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="accepted")
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")
 
     class Meta:
         unique_together = ("user", "board")
