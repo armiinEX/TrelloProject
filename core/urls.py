@@ -22,6 +22,10 @@ from boards.views import BoardViewSet, board_list_view
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from tasksapp.views import ListViewSet
 from tasksapp.views import TaskViewSet
+from django.conf.urls.i18n import i18n_patterns
+from .views import home_view   # 👈 اضافه شد
+
+
 
 
 
@@ -40,5 +44,12 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),   # برای set-language در روز 5
     path("boards-ui/", board_list_view, name="board_list_ui"),
     path("boards/", include("boards.urls")),  # 👈 این باید باشه
+    path("tasksapp/", include("tasksapp.urls")),
+    path("", home_view, name="home"),   # 👈 آدرس اصلی
+
 
 ]
+
+urlpatterns += i18n_patterns(
+    path("boards/", include("boards.urls")),
+)

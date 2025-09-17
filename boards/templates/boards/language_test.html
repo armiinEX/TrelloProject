@@ -1,0 +1,29 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% trans "Language Test" %}</title>
+</head>
+<body>
+  <h1>{% trans "Boards (i18n test)" %}</h1>
+
+  <select id="lang">
+    <option value="en">English</option>
+    <option value="fa">فارسی</option>
+  </select>
+  <button id="loadBtn">{% trans "Load Boards" %}</button>
+
+  <pre id="response"></pre>
+
+  <script>
+    document.getElementById("loadBtn").addEventListener("click", async () => {
+      const lang = document.getElementById("lang").value;
+      const res = await fetch("/api/boards/", {
+        headers: { "Accept-Language": lang }
+      });
+      document.getElementById("response").textContent = `${res.status}\n${await res.text()}`;
+    });
+  </script>
+</body>
+</html>

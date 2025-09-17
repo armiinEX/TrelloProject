@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action, api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django.utils.translation import gettext as _
 
 from .models import Board, BoardMembership
 from .serializers import BoardSerializer
@@ -42,7 +43,7 @@ class BoardViewSet(viewsets.ModelViewSet):
         email = request.data.get("email")
 
         if not email:
-            return Response({"error": "Email is required"}, status=400)
+            return Response({"error": _("Email is required")}, status=400)
 
         # ساخت Membership در حالت pending
         membership, created = BoardMembership.objects.get_or_create(
@@ -59,7 +60,7 @@ class BoardViewSet(viewsets.ModelViewSet):
         # ارسال ایمیل async
         send_invitation_email.delay(email, board.name, invite_link)
 
-        return Response({"message": f"Invitation sent to {email}"})
+        return Response({"message": _("Invitation sent successfully!")})
 
 
 def board_list_view(request):
@@ -72,9 +73,18 @@ def accept_invite(request, board_id):
     board = get_object_or_404(Board, id=board_id)
     membership = BoardMembership.objects.filter(board=board, status="pending").first()
     if not membership:
-        return Response({"error": "No pending invite found"}, status=400)
+        return Response({"error": _("No pending invite found")}, status=400)
 
     membership.user = request.user
     membership.status = "accepted"
     membership.save()
-    return Response({"message": "You have joined the board!"})
+    return Response({"message": _("You have joined the board!")})
+
+def invite_test_view(request):
+    # این همون تمپلیت invite.html هست که توی templates/boards ساختی
+    return render(request, "boards/invite.html")
+
+
+def language_test_view(request):
+    # این همون تمپلیت language_test.html هست
+    return render(request, "boards/language_test.html")

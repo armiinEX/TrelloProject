@@ -1,0 +1,50 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% trans "Invite to Board" %}</title>
+</head>
+<body>
+  <h1>{% trans "Invite User to Board" %}</h1>
+
+  <form id="inviteForm">
+    <label>{% trans "Board ID" %}:</label>
+    <input type="number" id="boardId" required><br><br>
+
+    <label>{% trans "Email" %}:</label>
+    <input type="email" id="email" required><br><br>
+
+    <button type="submit">{% trans "Send Invite" %}</button>
+  </form>
+
+  <pre id="response"></pre>
+
+  <script>
+    // CSRF helper: get cookie
+    function getCookie(name) {
+      const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+      return v ? v.pop() : '';
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    document.getElementById("inviteForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const boardId = document.getElementById("boardId").value;
+      const email = document.getElementById("email").value;
+
+      const res = await fetch(`/api/boards/${boardId}/invite/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrftoken
+        },
+        body: JSON.stringify({ email })
+      });
+
+      const text = await res.text();
+      document.getElementById("response").textContent = `${res.status}\n${text}`;
+    });
+  </script>
+</body>
+</html>

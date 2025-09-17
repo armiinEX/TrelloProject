@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Board(models.Model):
-    name = models.CharField(max_length=120)
+    name = models.CharField(_("Board Name"), max_length=120)
     color = models.CharField(max_length=20, default="#4f46e5")
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -31,17 +31,19 @@ class Board(models.Model):
 
 
 class BoardMembership(models.Model):
-    ROLE_CHOICES = [("owner", "Owner"), ("member", "Member")]
+    ROLE_CHOICES = [("owner", _("Owner")), ("member", _("Member"))]
     STATUS_CHOICES = [
-    ("pending", "Pending"),
-    ("accepted", "Accepted"),
-    ("rejected", "Rejected"),
+    ("pending", _("Pending")),
+    ("accepted", _("Accepted")),
+    ("rejected", _("Rejected")),
     ]
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name="memberships"
+    settings.AUTH_USER_MODEL,
+    on_delete=models.CASCADE,
+    related_name="memberships",
+    null=True,   # اجازه میده None باشه
+    blank=True   # اجازه میده توی فرم‌ها خالی بمونه
     )
     board = models.ForeignKey(
         Board,

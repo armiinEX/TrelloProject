@@ -5,6 +5,10 @@ from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
 from .models import List, Task
 from .serializers import ListSerializer, TaskSerializer
+from django.utils.translation import gettext as _
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
 
 
 class ListViewSet(viewsets.ModelViewSet):
@@ -17,7 +21,7 @@ class ListViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         board = serializer.validated_data["board"]
         if not board.memberships.filter(user=self.request.user, status="accepted").exists():
-            raise PermissionDenied("You are not a member of this board.")
+            raise PermissionDenied(_("You are not a member of this board."))
         serializer.save()
 
 
@@ -35,7 +39,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         lst = serializer.validated_data["list"]
         if not lst.board.memberships.filter(user=self.request.user, status="accepted").exists():
-            raise PermissionDenied("You are not a member of this board.")
+            raise PermissionDenied(_("You are not a member of this board."))
         serializer.save()
         
     @action(detail=True, methods=["post"])
@@ -48,3 +52,7 @@ class TaskViewSet(viewsets.ModelViewSet):
         task.order = new_order
         task.save()
         return Response(TaskSerializer(task).data)
+
+@login_required
+def tasks_test_view(request):
+    return render(request, "tasksapp/tasks_test.html")

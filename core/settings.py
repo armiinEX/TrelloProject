@@ -56,6 +56,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 REST_FRAMEWORK = {
@@ -73,8 +74,8 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        "DIRS": [BASE_DIR / "templates"],  # می‌تونی فولدر global هم بزنی
+        "APP_DIRS": True,  # 👈 این مهمه (templates داخل اپ‌ها رو لود می‌کنه)
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
