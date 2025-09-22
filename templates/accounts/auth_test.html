@@ -1,0 +1,135 @@
+<!-- templates/accounts/auth_test.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auth Test</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; }
+    form { margin-bottom: 2rem; padding: 1rem; border: 1px solid #ccc; }
+    input { display: block; margin: 0.5rem 0; padding: 0.5rem; width: 100%; }
+    button { padding: 0.5rem 1rem; }
+    .response { background: #f9f9f9; padding: 1rem; margin-top: 1rem; white-space: pre-wrap; }
+  </style>
+  <script>
+    // وقتی صفحه لود شد، توکن‌ها رو از localStorage بخون
+    window.onload = () => {
+      accessToken = localStorage.getItem("access");
+      refreshToken = localStorage.getItem("refresh");
+      if (accessToken) {
+        document.getElementById("login-response").textContent = 
+          "✅ Logged in (token found in localStorage)";
+      }
+    };
+  
+    let accessToken = null;
+    let refreshToken = null;
+  
+    async function apiRequest(url, method="GET", body=null, auth=true) {
+      const headers = {"Content-Type": "application/json"};
+      if (auth && accessToken) {
+        headers["Authorization"] = "Bearer " + accessToken;
+      }
+      const res = await fetch(url, {method, headers, body: body ? JSON.stringify(body) : null});
+      const text = await res.text();
+      return text;
+    }
+  
+    async function registerUser(e) {
+      e.preventDefault();
+      const username = document.getElementById("reg-username").value;
+      const email = document.getElementById("reg-email").value;
+      const password = document.getElementById("reg-password").value;
+      const res = await apiRequest("/api/accounts/auth/register/", "POST", {username, email, password}, false);
+      document.getElementById("register-response").textContent = res;
+    }
+  
+    async function loginUser(e) {
+      e.preventDefault();
+      const username = document.getElementById("login-username").value;
+      const password = document.getElementById("login-password").value;
+      const res = await fetch("/api/accounts/auth/login/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({username, password})
+      });
+      const data = await res.json();
+  
+      // ذخیره توکن‌ها در localStorage
+      localStorage.setItem("access", data.access);
+      localStorage.setItem("refresh", data.refresh);
+  
+      accessToken = data.access;
+      refreshToken = data.refresh;
+  
+      document.getElementById("login-response").textContent = JSON.stringify(data, null, 2);
+    }
+  
+    async function getProfile() {
+      const res = await apiRequest("/api/accounts/me/");
+      document.getElementById("profile-response").textContent = res;
+    }
+  
+    async function updateProfile(e) {
+      e.preventDefault();
+      const firstName = document.getElementById("upd-first").value;
+      const lang = document.getElementById("upd-lang").value;
+      const res = await apiRequest("/api/accounts/users/me/", "PATCH", {first_name: firstName, preferred_language: lang});
+      document.getElementById("update-response").textContent = res;
+    }
+  
+    async function logoutUser() {
+      const res = await apiRequest("/api/accounts/auth/logout/", "POST", {refresh: refreshToken});
+      document.getElementById("logout-response").textContent = res;
+  
+      // حذف توکن‌ها از localStorage
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+      accessToken = null;
+      refreshToken = null;
+  
+      document.getElementById("login-response").textContent = "❌ Logged out";
+    }
+  </script>
+</head>
+<body>
+  <h1>Auth Test Page</h1>
+
+  <form onsubmit="registerUser(event)">
+    <h2>Register</h2>
+    <input id="reg-username" placeholder="Username" required>
+    <input id="reg-email" placeholder="Email" type="email" required>
+    <input id="reg-password" placeholder="Password" type="password" required>
+    <button type="submit">Register</button>
+    <div id="register-response" class="response"></div>
+  </form>
+
+  <form onsubmit="loginUser(event)">
+    <h2>Login</h2>
+    <input id="login-username" placeholder="Username" required>
+    <input id="login-password" placeholder="Password" type="password" required>
+    <button type="submit">Login</button>
+    <div id="login-response" class="response"></div>
+  </form>
+
+  <section>
+    <h2>Profile</h2>
+    <button onclick="getProfile()">Get Profile</button>
+    <div id="profile-response" class="response"></div>
+  </section>
+
+  <form onsubmit="updateProfile(event)">
+    <h2>Update Profile</h2>
+    <input id="upd-first" placeholder="First name">
+    <input id="upd-lang" placeholder="Preferred language (fa/en)">
+    <button type="submit">Update</button>
+    <div id="update-response" class="response"></div>
+  </form>
+
+  <section>
+    <h2>Logout</h2>
+    <button onclick="logoutUser()">Logout</button>
+    <div id="logout-response" class="response"></div>
+  </section>
+</body>
+</html>

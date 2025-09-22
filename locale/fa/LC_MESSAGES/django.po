@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-15 12:22+0330\n"
+"POT-Creation-Date: 2025-09-17 12:28+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,16 +18,175 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: accounts/models.py:9
+msgid "English"
+msgstr ""
+
+#: accounts/models.py:9
+msgid "Farsi"
+msgstr ""
+
+#: accounts/models.py:11
+msgid "Preferred Language"
+msgstr ""
+
+#: accounts/models.py:12
+msgid "Preferred language for the user interface"
+msgstr ""
+
+#: boards/models.py:10
+msgid "Board Name"
+msgstr ""
+
 #: boards/models.py:25
 msgid "You have reached the maximum number of boards (5)."
 msgstr ""
 
-#: boards/models.py:63
+#: boards/models.py:34
+msgid "Owner"
+msgstr ""
+
+#: boards/models.py:34
+msgid "Member"
+msgstr ""
+
+#: boards/models.py:36
+msgid "Pending"
+msgstr ""
+
+#: boards/models.py:37
+msgid "Accepted"
+msgstr ""
+
+#: boards/models.py:38
+msgid "Rejected"
+msgstr ""
+
+#: boards/models.py:65
 msgid "This board already has maximum number of members (10)."
 msgstr ""
 
-#: boards/models.py:67
+#: boards/models.py:69
 msgid "You have reached the maximum number of board memberships (15)."
+msgstr ""
+
+#: boards/permissions.py:6
+msgid "You do not have permission to modify this board."
+msgstr ""
+
+#: boards/tasks.py:10
+#, python-format
+msgid "Invitation to join board: %(board_name)s"
+msgstr ""
+
+#: boards/tasks.py:11
+#, python-format
+msgid ""
+"You have been invited to join %(board_name)s.\n"
+"Click here to accept: %(invite_link)s"
+msgstr ""
+
+#: boards/templates/boards/board_list.html:2
+msgid "My Boards"
+msgstr ""
+
+#: boards/templates/boards/invite.html:6
+msgid "Invite to Board"
+msgstr ""
+
+#: boards/templates/boards/invite.html:9
+msgid "Invite User to Board"
+msgstr ""
+
+#: boards/templates/boards/invite.html:12
+msgid "Board ID"
+msgstr ""
+
+#: boards/templates/boards/invite.html:15
+msgid "Email"
+msgstr ""
+
+#: boards/templates/boards/invite.html:18
+msgid "Send Invite"
+msgstr ""
+
+#: boards/templates/boards/language_test.html:6
+msgid "Language Test"
+msgstr ""
+
+#: boards/templates/boards/language_test.html:9
+msgid "Boards (i18n test)"
+msgstr ""
+
+#: boards/templates/boards/language_test.html:15
+msgid "Load Boards"
+msgstr ""
+
+#: boards/views.py:46
+msgid "Email is required"
+msgstr ""
+
+#: boards/views.py:63
+msgid "Invitation sent successfully!"
+msgstr ""
+
+#: boards/views.py:76
+msgid "No pending invite found"
+msgstr ""
+
+#: boards/views.py:81
+msgid "You have joined the board!"
+msgstr ""
+
+#: tasksapp/models.py:8
+msgid "List Title"
+msgstr ""
+
+#: tasksapp/models.py:19
+msgid "Task Title"
+msgstr ""
+
+#: tasksapp/models.py:20
+msgid "Description"
+msgstr ""
+
+#: tasksapp/models.py:21
+msgid "Due Date"
+msgstr ""
+
+#: tasksapp/models.py:22
+#: venv/lib/python3.12/site-packages/django/forms/formsets.py:484
+#: venv/lib/python3.12/site-packages/django/forms/formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: tasksapp/models.py:23
+msgid "Completed"
+msgstr ""
+
+#: tasksapp/models.py:24
+msgid "Created At"
+msgstr ""
+
+#: tasksapp/templates/tasksapp/tasks_test.html:6
+msgid "Task API Test"
+msgstr ""
+
+#: tasksapp/templates/tasksapp/tasks_test.html:9
+#: tasksapp/templates/tasksapp/tasks_test.html:15
+msgid "Create Task"
+msgstr ""
+
+#: tasksapp/templates/tasksapp/tasks_test.html:11
+msgid "List ID"
+msgstr ""
+
+#: tasksapp/templates/tasksapp/tasks_test.html:13
+msgid "Title"
+msgstr ""
+
+#: tasksapp/views.py:24 tasksapp/views.py:42
+msgid "You are not a member of this board."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/click/_termui_impl.py:600
@@ -893,11 +1052,6 @@ msgid "Please submit at least %(num)d form."
 msgid_plural "Please submit at least %(num)d forms."
 msgstr[0] ""
 msgstr[1] ""
-
-#: venv/lib/python3.12/site-packages/django/forms/formsets.py:484
-#: venv/lib/python3.12/site-packages/django/forms/formsets.py:491
-msgid "Order"
-msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:499
 msgid "Delete"
