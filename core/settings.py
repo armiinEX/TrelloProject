@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "tasksapp",
     "drf_spectacular",
     "drf_spectacular_sidecar",
-    "rest_framework_simplejwt.token_blacklist",  # برای logout via blacklist
+    "rest_framework_simplejwt.token_blacklist",
 ]
 
 MIDDLEWARE = [
@@ -64,7 +64,7 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",   # هفته اول ساده
+        "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
@@ -83,8 +83,8 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        "DIRS": [BASE_DIR / "templates"],  # می‌تونی فولدر global هم بزنی
-        "APP_DIRS": True,  # 👈 این مهمه (templates داخل اپ‌ها رو لود می‌کنه)
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
@@ -158,7 +158,7 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "armintestmac@gmail.com"
-EMAIL_HOST_PASSWORD = "xhxj ydbv alkj xdug"  # از Gmail App Password استفاده کن
+EMAIL_HOST_PASSWORD = "xhxj ydbv alkj xdug"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 

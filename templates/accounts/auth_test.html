@@ -12,7 +12,6 @@
     .response { background: #f9f9f9; padding: 1rem; margin-top: 1rem; white-space: pre-wrap; }
   </style>
   <script>
-    // وقتی صفحه لود شد، توکن‌ها رو از localStorage بخون
     window.onload = () => {
       accessToken = localStorage.getItem("access");
       refreshToken = localStorage.getItem("refresh");
@@ -55,7 +54,6 @@
       });
       const data = await res.json();
   
-      // ذخیره توکن‌ها در localStorage
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
   
@@ -82,7 +80,6 @@
       const res = await apiRequest("/api/accounts/auth/logout/", "POST", {refresh: refreshToken});
       document.getElementById("logout-response").textContent = res;
   
-      // حذف توکن‌ها از localStorage
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
       accessToken = null;

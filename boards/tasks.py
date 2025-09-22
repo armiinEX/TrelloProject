@@ -12,7 +12,7 @@ def send_invitation_email(email, board_name, invite_link):
         "board_name": board_name,
         "invite_link": invite_link,
     }
-    from_email = None  # از DEFAULT_FROM_EMAIL
+    from_email = None
     send_mail(subject, message, from_email, [email])
 
 

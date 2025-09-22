@@ -31,22 +31,23 @@ class Board(models.Model):
 
 
 class BoardMembership(models.Model):
-    ROLE_CHOICES = [("owner", _("Owner")), ("member", _("Member"))]
+    ROLE_CHOICES = [("owner", "Owner"), ("member", "Member")]
     STATUS_CHOICES = [
-    ("pending", _("Pending")),
-    ("accepted", _("Accepted")),
-    ("rejected", _("Rejected")),
+        ("pending", "Pending"),
+        ("accepted", "Accepted"),
+        ("rejected", "Rejected"),
     ]
 
     user = models.ForeignKey(
-    settings.AUTH_USER_MODEL,
-    on_delete=models.CASCADE,
-    related_name="memberships",
-    null=True,   # اجازه میده None باشه
-    blank=True   # اجازه میده توی فرم‌ها خالی بمونه
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="memberships",
+        null=True,
+        blank=True,
     )
+    invited_email = models.EmailField(null=True, blank=True)  # ایمیل دعوت‌شده (برای invites)
     board = models.ForeignKey(
-        Board,
+        "boards.Board",
         on_delete=models.CASCADE,
         related_name="memberships"
     )
@@ -57,17 +58,23 @@ class BoardMembership(models.Model):
         unique_together = ("user", "board")
 
     def __str__(self):
-        return f"{self.user} in {self.board} ({self.role})"
+        if self.user:
+            who = str(self.user)
+        else:
+            who = f"invited:{self.invited_email}"
+        return f"{who} in {self.board} ({self.role}/{self.status})"
 
     def clean(self):
-        if BoardMembership.objects.filter(board=self.board).count() >= 10 and not self.pk:
-            raise ValidationError(
-                _("This board already has maximum number of members (10).")
-            )
-        if BoardMembership.objects.filter(user=self.user).count() >= 15 and not self.pk:
-            raise ValidationError(
-                _("You have reached the maximum number of board memberships (15).")
-            )
+
+        if self.board and (not self.pk):
+            accepted_count = BoardMembership.objects.filter(board=self.board, status="accepted").count()
+            if self.status == "accepted" and accepted_count >= 10:
+                raise ValidationError(_("This board already has maximum number of members (10)."))
+
+        if self.user and (not self.pk):
+            user_memberships_count = BoardMembership.objects.filter(user=self.user).exclude(status="rejected").count()
+            if user_memberships_count >= 15:
+                raise ValidationError(_("You have reached the maximum number of board memberships (15)."))
 
     def save(self, *args, **kwargs):
         self.full_clean()

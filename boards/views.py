@@ -19,11 +19,54 @@ class BoardViewSet(viewsets.ModelViewSet):
     serializer_class = BoardSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
+
+    @action(detail=True, methods=["get"])
+    def members(self, request, pk=None):
+        board = self.get_object() 
+        qs = board.memberships.all().order_by("role", "id")
+        serializer = MemberSerializer(qs, many=True)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=["post"])
+    def invite(self, request, pk=None):
+        board = self.get_object()
+        email = request.data.get("email")
+        if not email:
+            return Response({"error": "Email is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        invited_user = User.objects.filter(email__iexact=email).first()
+
+        if invited_user:
+            membership, created = BoardMembership.objects.get_or_create(
+                board=board,
+                user=invited_user,
+                defaults={"role": "member", "status": "accepted"}
+            )
+            if created:
+                msg = f"{email} added as member"
+            else:
+                msg = f"{email} is already a member or invite exists"
+        else:
+            membership, created = BoardMembership.objects.get_or_create(
+                board=board,
+                invited_email=email,
+                defaults={"user": None, "status": "pending", "role": "member"}
+            )
+            msg = f"Invitation created for {email}"
+
+        invite_link = request.build_absolute_uri(reverse("boards:accept-invite", args=[board.id]))
+        try:
+            send_invitation_email.delay(email, board.name, invite_link)
+        except Exception:
+            pass
+
+        return Response({"message": msg, "invite_id": membership.id})
+
+
     def get_queryset(self):
-        """
-    هفته اول: بردهایی که Owner آن‌ها هستی
-    یا عضو شدی (status="accepted")
-    """
+
         return Board.objects.filter(
             Q(owner=self.request.user) |
             Q(memberships__user=self.request.user, memberships__status="accepted")
@@ -45,19 +88,16 @@ class BoardViewSet(viewsets.ModelViewSet):
         if not email:
             return Response({"error": _("Email is required")}, status=400)
 
-        # ساخت Membership در حالت pending
         membership, created = BoardMembership.objects.get_or_create(
             board=board,
-            user=None,  # اگه کاربر هنوز رجیستر نکرده
+            user=None,
             defaults={"status": "pending"}
         )
 
-        # ساخت لینک دعوت
         invite_link = request.build_absolute_uri(
             reverse("boards:accept-invite", args=[board.id])
         )
 
-        # ارسال ایمیل async
         send_invitation_email.delay(email, board.name, invite_link)
 
         return Response({"message": _("Invitation sent successfully!")})
@@ -81,10 +121,8 @@ def accept_invite(request, board_id):
     return Response({"message": _("You have joined the board!")})
 
 def invite_test_view(request):
-    # این همون تمپلیت invite.html هست که توی templates/boards ساختی
     return render(request, "boards/invite.html")
 
 
 def language_test_view(request):
-    # این همون تمپلیت language_test.html هست
     return render(request, "boards/language_test.html")

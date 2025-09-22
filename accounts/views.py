@@ -61,7 +61,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
 @permission_classes([IsAuthenticated])
 def logout_view(request):
     try:
-        # اگه از JWT استفاده می‌کنی باید توکن رو blacklist کنی
         refresh_token = request.data.get("refresh")
         if refresh_token:
             from rest_framework_simplejwt.tokens import RefreshToken

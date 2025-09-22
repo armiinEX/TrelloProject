@@ -23,7 +23,9 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from tasksapp.views import ListViewSet
 from tasksapp.views import TaskViewSet
 from django.conf.urls.i18n import i18n_patterns
-from .views import home_view   # 👈 اضافه شد
+from .views import home_view
+from boards.views import InvitationViewSet
+
 
 
 
@@ -33,7 +35,7 @@ router = DefaultRouter()
 router.register("boards", BoardViewSet, basename="board")
 router.register("lists", ListViewSet, basename="list")
 router.register("tasks", TaskViewSet, basename="task")
-
+router.register("invitations", InvitationViewSet, basename="invitation")
 
 
 urlpatterns = [
@@ -41,10 +43,10 @@ urlpatterns = [
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
     path("api/", include(router.urls)),
-    path("i18n/", include("django.conf.urls.i18n")),   # برای set-language در روز 5
+    path("i18n/", include("django.conf.urls.i18n")),
     path("boards-ui/", board_list_view, name="board_list_ui"),
     path("tasksapp/", include("tasksapp.urls")),
-    path("", home_view, name="home"),   # 👈 آدرس اصلی
+    path("", home_view, name="home"),
     path("api/accounts/", include("accounts.urls")),
 ]
 
