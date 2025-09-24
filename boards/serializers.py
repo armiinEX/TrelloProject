@@ -28,8 +28,10 @@ class MemberSerializer(serializers.ModelSerializer):
 
 class InvitationSerializer(serializers.ModelSerializer):
     user = UserBriefSerializer(read_only=True)
+    board = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = BoardMembership
         fields = ("id", "board", "user", "invited_email", "role", "status")
         read_only_fields = ("board",)
+

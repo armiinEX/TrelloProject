@@ -25,3 +25,22 @@ class PreferredLanguageMiddleware:
         # optional: deactivate or restore to default
         translation.deactivate()
         return response
+
+class PreferredLanguageMiddleware:
+    """
+    Activate user's preferred_language (if set) for each request.
+    Place this middleware after AuthenticationMiddleware.
+    """
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        # request.user is available after AuthenticationMiddleware
+        user = getattr(request, "user", None)
+        if user and user.is_authenticated:
+            lang = getattr(user, "preferred_language", None)
+            if lang:
+                translation.activate(lang)
+                request.LANGUAGE_CODE = lang
+        response = self.get_response(request)
+        return response

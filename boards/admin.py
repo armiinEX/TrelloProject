@@ -2,12 +2,11 @@
 from django.contrib import admin
 from .models import Board, BoardMembership
 
-admin.site.register(BoardMembership)
-
 
 @admin.register(Board)
 class BoardAdmin(admin.ModelAdmin):
     list_display = ("name", "owner", "created_at")
+
 
 @admin.register(BoardMembership)
 class BoardMembershipAdmin(admin.ModelAdmin):

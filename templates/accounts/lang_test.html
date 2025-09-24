@@ -1,0 +1,40 @@
+<!-- templates/accounts/lang_test.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Language test</title>
+</head>
+<body>
+  <h1>Languages</h1>
+  <div id="langs">Loading...</div>
+
+  <h2>Set my language</h2>
+  <input id="lang-input" placeholder="e.g. fa or en">
+  <button onclick="setLang()">Set language</button>
+  <pre id="result"></pre>
+
+  <script>
+    async function loadLangs(){
+      const res = await fetch("/api/accounts/languages/");
+      const data = await res.json();
+      document.getElementById("langs").textContent = JSON.stringify(data, null, 2);
+    }
+    async function setLang(){
+      const lang = document.getElementById("lang-input").value;
+      const token = localStorage.getItem("access"); // if you test with JWT from auth_test page
+      const res = await fetch("/api/accounts/me/language/", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": token ? ("Bearer " + token) : ""
+        },
+        body: JSON.stringify({preferred_language: lang})
+      });
+      const txt = await res.text();
+      document.getElementById("result").textContent = txt;
+    }
+    loadLangs();
+  </script>
+</body>
+</html>

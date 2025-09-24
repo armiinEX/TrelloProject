@@ -102,11 +102,9 @@ class BoardViewSet(viewsets.ModelViewSet):
 
         return Response({"message": _("Invitation sent successfully!")})
 
-
 def board_list_view(request):
     boards = Board.objects.filter(memberships__user=request.user)
     return render(request, "boards/board_list.html", {"boards": boards})
-
 
 @api_view(["GET"])
 def accept_invite(request, board_id):
@@ -123,6 +121,6 @@ def accept_invite(request, board_id):
 def invite_test_view(request):
     return render(request, "boards/invite.html")
 
-
 def language_test_view(request):
     return render(request, "boards/language_test.html")
+
