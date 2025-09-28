@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tasks Test</title>
+  <style>
+    body { font-family: sans-serif; max-width: 700px; margin: 2rem auto; }
+    section { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; }
+    button { margin-top: 0.5rem; padding: 0.4rem 1rem; }
+    input { margin: 0.3rem 0; padding: 0.4rem; width: 100%; }
+    .response { background: #f8f8f8; padding: 0.7rem; margin-top: 0.5rem; white-space: pre-wrap; }
+  </style>
+  <script>
+    let accessToken = localStorage.getItem("access");
+
+    async function apiRequest(url, method="GET", body=null) {
+      const headers = {"Content-Type": "application/json"};
+      if (accessToken) {
+        headers["Authorization"] = "Bearer " + accessToken;
+      }
+      const res = await fetch(url, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : null
+      });
+      const text = await res.text();
+      return text;
+    }
+
+    async function getTasks(e) {
+      e.preventDefault();
+      const listId = document.getElementById("list-id").value;
+      const res = await apiRequest(`/api/lists/${listId}/tasks/`);
+      document.getElementById("tasks-response").textContent = res;
+    }
+
+    async function createTask(e) {
+      e.preventDefault();
+      const listId = document.getElementById("create-list-id").value;
+      const title = document.getElementById("task-title").value;
+      const dueDate = document.getElementById("task-due").value;
+      const res = await apiRequest(`/api/lists/${listId}/tasks/`, "POST", {title, due_date: dueDate});
+      document.getElementById("create-response").textContent = res;
+    }
+
+    async function getTaskDetail(e) {
+      e.preventDefault();
+      const id = document.getElementById("detail-id").value;
+      const res = await apiRequest(`/api/tasks/${id}/`);
+      document.getElementById("detail-response").textContent = res;
+    }
+
+    async function updateTask(e) {
+      e.preventDefault();
+      const id = document.getElementById("upd-id").value;
+      const title = document.getElementById("upd-title").value;
+      const listId = document.getElementById("upd-list").value;
+      const dueDate = document.getElementById("upd-due").value;
+      const res = await apiRequest(`/api/tasks/${id}/`, "PATCH", {
+        title,
+        list: listId,
+        due_date: dueDate
+      });
+      document.getElementById("update-response").textContent = res;
+    }
+
+    async function deleteTask(e) {
+      e.preventDefault();
+      const id = document.getElementById("del-id").value;
+      const res = await apiRequest(`/api/tasks/${id}/`, "DELETE");
+      document.getElementById("delete-response").textContent = res || "Deleted (204)";
+    }
+  </script>
+</head>
+<body>
+  <h1>Tasks Test Page</h1>
+
+  <section>
+    <h2>Get Tasks in List</h2>
+    <form onsubmit="getTasks(event)">
+      <input id="list-id" placeholder="List ID" required>
+      <button type="submit">Get Tasks</button>
+    </form>
+    <div id="tasks-response" class="response"></div>
+  </section>
+
+  <section>
+    <h2>Create Task</h2>
+    <form onsubmit="createTask(event)">
+      <input id="create-list-id" placeholder="List ID" required>
+      <input id="task-title" placeholder="Task Title" required>
+      <input id="task-due" type="date" placeholder="Due Date">
+      <button type="submit">Create</button>
+    </form>
+    <div id="create-response" class="response"></div>
+  </section>
+
+  <section>
+    <h2>Get Task Details</h2>
+    <form onsubmit="getTaskDetail(event)">
+      <input id="detail-id" placeholder="Task ID" required>
+      <button type="submit">Get Details</button>
+    </form>
+    <div id="detail-response" class="response"></div>
+  </section>
+
+  <section>
+    <h2>Update Task</h2>
+    <form onsubmit="updateTask(event)">
+      <input id="upd-id" placeholder="Task ID" required>
+      <input id="upd-title" placeholder="New Title">
+      <input id="upd-list" placeholder="New List ID">
+      <input id="upd-due" type="date" placeholder="New Due Date">
+      <button type="submit">Update</button>
+    </form>
+    <div id="update-response" class="response"></div>
+  </section>
+
+  <section>
+    <h2>Delete Task</h2>
+    <form onsubmit="deleteTask(event)">
+      <input id="del-id" placeholder="Task ID" required>
+      <button type="submit">Delete</button>
+    </form>
+    <div id="delete-response" class="response"></div>
+  </section>
+</body>
+</html>

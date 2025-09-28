@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Invitations Test</title>
+  <style>
+    body { font-family: sans-serif; max-width: 700px; margin: 2rem auto; }
+    section { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; }
+    button { margin-top: 0.5rem; padding: 0.4rem 1rem; }
+    input, select { margin: 0.3rem 0; padding: 0.4rem; width: 100%; }
+    .response { background: #f8f8f8; padding: 0.7rem; margin-top: 0.5rem; white-space: pre-wrap; }
+  </style>
+  <script>
+    let accessToken = localStorage.getItem("access");
+
+    async function apiRequest(url, method="GET", body=null) {
+      const headers = {"Content-Type": "application/json"};
+      if (accessToken) {
+        headers["Authorization"] = "Bearer " + accessToken;
+      }
+      const res = await fetch(url, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : null
+      });
+      const text = await res.text();
+      return text;
+    }
+
+    async function getInvitations() {
+      const res = await apiRequest("/api/invitations/");
+      document.getElementById("list-response").textContent = res;
+    }
+
+    async function updateInvitation(e) {
+      e.preventDefault();
+      const id = document.getElementById("inv-id").value;
+      const status = document.getElementById("inv-status").value;
+      const res = await apiRequest(`/api/invitations/${id}/`, "PATCH", {status});
+      document.getElementById("update-response").textContent = res;
+    }
+  </script>
+</head>
+<body>
+  <h1>Invitations Test Page</h1>
+
+  <section>
+    <h2>List Invitations</h2>
+    <button onclick="getInvitations()">Get My Invitations</button>
+    <div id="list-response" class="response"></div>
+  </section>
+
+  <section>
+    <h2>Update Invitation</h2>
+    <form onsubmit="updateInvitation(event)">
+      <input id="inv-id" placeholder="Invitation ID" required>
+      <select id="inv-status">
+        <option value="accepted">Accept</option>
+        <option value="rejected">Reject</option>
+      </select>
+      <button type="submit">Update Invitation</button>
+    </form>
+    <div id="update-response" class="response"></div>
+  </section>
+</body>
+</html>

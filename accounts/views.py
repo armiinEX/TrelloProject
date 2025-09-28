@@ -83,7 +83,7 @@ class ProfileView(APIView):
         return Response(serializer.data)
 
 def auth_test_view(request):
-    return render(request, "accounts/auth_test.html")
+    return render(request, "accounts/auth_test_full.html")
 
 class LanguagesView(APIView):
     """
@@ -133,3 +133,7 @@ class UserLanguageUpdateView(APIView):
         resp = Response(serializer.data)
         resp["Content-Language"] = lang
         return resp
+
+def languages_test_view(request):
+    return render(request, "accounts/languages_test.html")
+

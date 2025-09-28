@@ -16,6 +16,7 @@ from .serializers import MemberSerializer
 
 
 
+
 class BoardViewSet(viewsets.ModelViewSet):
     serializer_class = BoardSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
@@ -125,3 +126,8 @@ def invite_test_view(request):
 def language_test_view(request):
     return render(request, "boards/language_test.html")
 
+def boards_test_view(request):
+    return render(request, "boards/boards_test.html")
+
+def invitations_test_view(request):
+    return render(request, "boards/invitations_test.html")

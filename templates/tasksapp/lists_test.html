@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lists Test</title>
+  <style>
+    body { font-family: sans-serif; max-width: 700px; margin: 2rem auto; }
+    section { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; }
+    button { margin-top: 0.5rem; padding: 0.4rem 1rem; }
+    input { margin: 0.3rem 0; padding: 0.4rem; width: 100%; }
+    .response { background: #f8f8f8; padding: 0.7rem; margin-top: 0.5rem; white-space: pre-wrap; }
+  </style>
+  <script>
+    let accessToken = localStorage.getItem("access");
+
+    async function apiRequest(url, method="GET", body=null) {
+      const headers = {"Content-Type": "application/json"};
+      if (accessToken) {
+        headers["Authorization"] = "Bearer " + accessToken;
+      }
+      const res = await fetch(url, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : null
+      });
+      const text = await res.text();
+      return text;
+    }
+
+    async function getLists(e) {
+      e.preventDefault();
+      const boardId = document.getElementById("board-id").value;
+      const res = await apiRequest(`/api/boards/${boardId}/lists/`);
+      document.getElementById("list-response").textContent = res;
+    }
+
+    async function createList(e) {
+      e.preventDefault();
+      const boardId = document.getElementById("create-board-id").value;
+      const name = document.getElementById("list-name").value;
+      const res = await apiRequest(`/api/boards/${boardId}/lists/`, "POST", {name});
+      document.getElementById("create-response").textContent = res;
+    }
+
+    async function getListDetail(e) {
+      e.preventDefault();
+      const id = document.getElementById("detail-id").value;
+      const res = await apiRequest(`/api/lists/${id}/`);
+      document.getElementById("detail-response").textContent = res;
+    }
+
+    async function updateList(e) {
+      e.preventDefault();
+      const id = document.getElementById("upd-id").value;
+      const name = document.getElementById("upd-name").value;
+      const res = await apiRequest(`/api/lists/${id}/`, "PATCH", {name});
+      document.getElementById("update-response").textContent = res;
+    }
+
+    async function deleteList(e) {
+      e.preventDefault();
+      const id = document.getElementById("del-id").value;
+      const res = await apiRequest(`/api/lists/${id}/`, "DELETE");
+      document.getElementById("delete-response").textContent = res || "Deleted (204)";
+    }
+  </script>
+</head>
+<body>
+  <h1>Lists Test Page</h1>
+
+  <section>
+    <h2>Get Lists in Board</h2>
+    <form onsubmit="getLists(event)">
+      <input id="board-id" placeholder="Board ID" required>
+      <button type="submit">Get Lists</button>
+    </form>
+    <div id="list-response" class="response"></div>
+  </section>
+
+  <section>
+    <h2>Create List</h2>
+    <form onsubmit="createList(event)">
+      <input id="create-board-id" placeholder="Board ID" required>
+      <input id="list-name" placeholder="List Name" required>
+      <button type="submit">Create</button>
+    </form>
+    <div id="create-response" class="response"></div>
+  </section>
+
+  <section>
+    <h2>Get List Details</h2>
+    <form onsubmit="getListDetail(event)">
+      <input id="detail-id" placeholder="List ID" required>
+      <button type="submit">Get Details</button>
+    </form>
+    <div id="detail-response" class="response"></div>
+  </section>
+
+  <section>
+    <h2>Update List</h2>
+    <form onsubmit="updateList(event)">
+      <input id="upd-id" placeholder="List ID" required>
+      <input id="upd-name" placeholder="New List Name" required>
+      <button type="submit">Update</button>
+    </form>
+    <div id="update-response" class="response"></div>
+  </section>
+
+  <section>
+    <h2>Delete List</h2>
+    <form onsubmit="deleteList(event)">
+      <input id="del-id" placeholder="List ID" required>
+      <button type="submit">Delete</button>
+    </form>
+    <div id="delete-response" class="response"></div>
+  </section>
+</body>
+</html>

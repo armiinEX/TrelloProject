@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Auth Test UI — Register / Login / Profile</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; max-width: 900px; margin: 2rem auto; padding: 0 1rem; color:#111; }
+    h1 { font-size: 1.5rem; margin-bottom: .5rem; }
+    section { border: 1px solid #e2e8f0; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; background:#fff; }
+    label { display:block; margin-top:.5rem; font-size:.9rem; color:#333; }
+    input, select, button, textarea { margin-top: .25rem; padding: .5rem .6rem; font-size: .95rem; width:100%; box-sizing: border-box; }
+    .row { display:flex; gap:.6rem; }
+    .col { flex:1; }
+    button { cursor:pointer; background:#2563eb; color:white; border:0; border-radius:6px; padding:.6rem .8rem; }
+    button.secondary { background:#6b7280; }
+    pre.response { background:#f8fafc; border:1px solid #e6eefb; padding: .6rem; white-space: pre-wrap; max-height:320px; overflow:auto; }
+    .small { font-size:.85rem; color:#555; margin-top:.4rem; }
+    .inline { display:inline-block; width:auto; }
+    .tokens { display:flex; gap:.6rem; align-items:center; margin-top:.4rem; }
+    .pill { background:#eef2ff; padding:.25rem .5rem; border-radius:999px; color:#3730a3; font-weight:600; }
+  </style>
+</head>
+<body>
+  <h1>Authentication Test UI</h1>
+  <p class="small">Endpoints tested: <code>/api/accounts/auth/register/</code>, <code>/api/accounts/auth/login/</code>, <code>/api/accounts/auth/logout/</code>, <code>/api/accounts/me/</code>, <code>/api/accounts/auth/refresh/</code>.</p>
+
+  <!-- REGISTER -->
+  <section>
+    <h2>Register</h2>
+    <form id="register-form">
+      <label>Username
+        <input id="reg-username" required placeholder="username">
+      </label>
+      <label>Email
+        <input id="reg-email" type="email" required placeholder="you@example.com">
+      </label>
+      <label>Password
+        <input id="reg-password" type="password" required placeholder="password">
+      </label>
+      <div style="margin-top:.6rem;">
+        <button type="submit">Register</button>
+        <button type="button" class="secondary" onclick="clearResponses()">Clear</button>
+      </div>
+    </form>
+    <div class="small">Response:</div>
+    <pre id="register-res" class="response"></pre>
+  </section>
+
+  <!-- LOGIN -->
+  <section>
+    <h2>Login</h2>
+    <form id="login-form">
+      <label>Username
+        <input id="login-username" required placeholder="username">
+      </label>
+      <label>Password
+        <input id="login-password" type="password" required placeholder="password">
+      </label>
+      <div style="margin-top:.6rem;">
+        <button type="submit">Login</button>
+        <button type="button" class="secondary" onclick="tryRefresh()">Refresh Access</button>
+      </div>
+    </form>
+
+    <div class="tokens">
+      <div class="pill" id="access-pill">access: —</div>
+      <div class="pill" id="refresh-pill">refresh: —</div>
+    </div>
+
+    <div class="small">Response:</div>
+    <pre id="login-res" class="response"></pre>
+  </section>
+
+  <!-- PROFILE -->
+  <section>
+    <h2>Profile (GET / PATCH)</h2>
+    <div style="display:flex; gap:.6rem; margin-bottom:.6rem;">
+      <button onclick="getProfile()">Get Profile</button>
+      <button onclick="loadProfileToForm()" class="secondary">Load into form</button>
+    </div>
+
+    <form id="profile-form">
+      <label>First name
+        <input id="profile-first" placeholder="First name">
+      </label>
+      <label>Last name
+        <input id="profile-last" placeholder="Last name">
+      </label>
+      <label>Preferred language
+        <select id="profile-lang">
+          <option value="">(no change)</option>
+          <option value="en">en</option>
+          <option value="fa">fa</option>
+        </select>
+      </label>
+      <div style="margin-top:.6rem;">
+        <button type="submit">Update Profile (PATCH)</button>
+        <button type="button" class="secondary" onclick="logoutUser()">Logout</button>
+      </div>
+    </form>
+
+    <div class="small">Response (GET):</div>
+    <pre id="profile-res" class="response"></pre>
+    <div class="small">Response (PATCH):</div>
+    <pre id="profile-update-res" class="response"></pre>
+  </section>
+
+  <!-- NOTES / helper -->
+  <section>
+    <h2>Notes & Helpers</h2>
+    <p class="small">Make sure to use trailing slashes in URLs. If your access token expires, press <strong>Refresh Access</strong> to get a new access token using the stored refresh token (<code>/api/accounts/auth/refresh/</code>).</p>
+    <div class="small">Stored tokens (localStorage):</div>
+    <pre id="ls-content" class="response"></pre>
+  </section>
+
+<script>
+/* ----- configuration ----- */
+const API_PREFIX = "/api/accounts";
+const ENDPOINTS = {
+  register: `${API_PREFIX}/auth/register/`,
+  login: `${API_PREFIX}/auth/login/`,
+  logout: `${API_PREFIX}/auth/logout/`,
+  me: `${API_PREFIX}/me/`,
+  refresh: `${API_PREFIX}/auth/refresh/`
+};
+
+/* ----- token management ----- */
+let accessToken = localStorage.getItem("access") || null;
+let refreshToken = localStorage.getItem("refresh") || null;
+updateTokenPills();
+renderLocalStorage();
+
+/* ----- helpers ----- */
+function jsonSafe(text) {
+  try { return JSON.stringify(JSON.parse(text), null, 2); } catch(e){ return text; }
+}
+function showResponse(elId, text, status=null) {
+  const el = document.getElementById(elId);
+  el.textContent = (status!==null ? `HTTP ${status}\n` : "") + jsonSafe(text);
+}
+function updateLocalTokens(access, refresh) {
+  if (access) { accessToken = access; localStorage.setItem("access", access); }
+  if (refresh) { refreshToken = refresh; localStorage.setItem("refresh", refresh); }
+  updateTokenPills();
+  renderLocalStorage();
+}
+function clearResponses() {
+  ["register-res","login-res","profile-res","profile-update-res","ls-content"].forEach(id => document.getElementById(id).textContent = "");
+}
+function updateTokenPills() {
+  document.getElementById("access-pill").textContent = "access: " + (accessToken ? "●stored" : "—");
+  document.getElementById("refresh-pill").textContent = "refresh: " + (refreshToken ? "●stored" : "—");
+}
+function renderLocalStorage() {
+  const obj = {
+    access: accessToken || null,
+    refresh: refreshToken || null
+  };
+  document.getElementById("ls-content").textContent = JSON.stringify(obj, null, 2);
+}
+
+/* ----- generic API caller that auto-refreshes if access expired ----- */
+async function apiCall(url, method="GET", body=null, allowRefresh=true) {
+  const headers = {"Content-Type": "application/json"};
+  if (accessToken) headers["Authorization"] = "Bearer " + accessToken;
+  const res = await fetch(url, {method, headers, body: body ? JSON.stringify(body) : null});
+  if (res.status === 401 && allowRefresh && refreshToken) {
+    // try to refresh access token
+    const refreshed = await tryRefresh();
+    if (refreshed) {
+      return apiCall(url, method, body, false); // retry once
+    }
+  }
+  const text = await res.text();
+  return { status: res.status, text };
+}
+
+/* ----- register ----- */
+document.getElementById("register-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = {
+    username: document.getElementById("reg-username").value,
+    email: document.getElementById("reg-email").value,
+    password: document.getElementById("reg-password").value
+  };
+  try {
+    const res = await fetch(ENDPOINTS.register, {
+      method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(data)
+    });
+    const text = await res.text();
+    showResponse("register-res", text, res.status);
+  } catch (err) {
+    showResponse("register-res", String(err));
+  }
+});
+
+/* ----- login ----- */
+document.getElementById("login-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = {
+    username: document.getElementById("login-username").value,
+    password: document.getElementById("login-password").value
+  };
+  try {
+    const res = await fetch(ENDPOINTS.login, {
+      method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    // expected: { access: "...", refresh: "...", user: {...} } or simplejwt { access, refresh }
+    updateLocalTokens(json.access || null, json.refresh || null);
+    showResponse("login-res", JSON.stringify(json, null, 2), res.status);
+  } catch (err) {
+    showResponse("login-res", String(err));
+  }
+});
+
+/* ----- get profile ----- */
+async function getProfile() {
+  try {
+    const res = await apiCall(ENDPOINTS.me, "GET");
+    showResponse("profile-res", res.text, res.status);
+    if (res.status >= 200 && res.status < 300) {
+      // optionally prefill form
+      try {
+        const data = JSON.parse(res.text);
+        document.getElementById("profile-first").value = data.first_name || "";
+        document.getElementById("profile-last").value = data.last_name || "";
+        document.getElementById("profile-lang").value = data.preferred_language || "";
+      } catch(e){}
+    }
+  } catch (err) {
+    showResponse("profile-res", String(err));
+  }
+}
+
+/* ----- patch profile ----- */
+document.getElementById("profile-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const payload = {};
+  const first = document.getElementById("profile-first").value;
+  const last = document.getElementById("profile-last").value;
+  const lang = document.getElementById("profile-lang").value;
+  if (first) payload.first_name = first;
+  if (last) payload.last_name = last;
+  if (lang) payload.preferred_language = lang;
+
+  try {
+    const res = await apiCall(ENDPOINTS.me, "PATCH", payload);
+    showResponse("profile-update-res", res.text, res.status);
+  } catch (err) {
+    showResponse("profile-update-res", String(err));
+  }
+});
+
+/* ----- logout (invalidate refresh) ----- */
+async function logoutUser() {
+  if (!refreshToken) {
+    showResponse("profile-update-res", "No refresh token stored.");
+    return;
+  }
+  try {
+    const res = await fetch(ENDPOINTS.logout, {
+      method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({refresh: refreshToken})
+    });
+    const text = await res.text();
+    // clear local tokens regardless of server result
+    accessToken = refreshToken = null;
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+    updateTokenPills();
+    renderLocalStorage();
+    showResponse("profile-update-res", text, res.status);
+  } catch (err) {
+    showResponse("profile-update-res", String(err));
+  }
+}
+
+/* ----- try refresh ----- */
+async function tryRefresh() {
+  if (!refreshToken) {
+    showResponse("login-res", "No refresh token available to refresh access.");
+    return false;
+  }
+  try {
+    const res = await fetch(ENDPOINTS.refresh, {
+      method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({refresh: refreshToken})
+    });
+    const json = await res.json();
+    if (json.access) {
+      updateLocalTokens(json.access, null);
+      showResponse("login-res", `Refreshed access token (HTTP ${res.status})`);
+      return true;
+    } else {
+      showResponse("login-res", JSON.stringify(json, null,2), res.status);
+      return false;
+    }
+  } catch (err) {
+    showResponse("login-res", String(err));
+    return false;
+  }
+}
+
+/* ----- helper to prefill profile form from last GET ----- */
+function loadProfileToForm() {
+  const text = document.getElementById("profile-res").textContent;
+  if (!text) return;
+  try {
+    const data = JSON.parse(text);
+    document.getElementById("profile-first").value = data.first_name || "";
+    document.getElementById("profile-last").value = data.last_name || "";
+    document.getElementById("profile-lang").value = data.preferred_language || "";
+  } catch(e){
+    // ignore
+  }
+}
+</script>
+</body>
+</html>

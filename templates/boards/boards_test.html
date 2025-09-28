@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Boards Test UI</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; max-width: 900px; margin: 2rem auto; padding: 1rem; }
+    h1 { margin-bottom: 1rem; }
+    section { border: 1px solid #ddd; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; background: #f9fafb; }
+    input, select, textarea, button { margin: .3rem 0; padding: .5rem; font-size: .95rem; }
+    button { cursor:pointer; border:0; border-radius:6px; background:#2563eb; color:#fff; }
+    button.secondary { background:#6b7280; }
+    pre { background:#fff; border:1px solid #ddd; padding:.6rem; max-height:300px; overflow:auto; }
+    .row { display:flex; gap:.6rem; flex-wrap:wrap; }
+    .col { flex:1; }
+  </style>
+</head>
+<body>
+  <h1>Boards Test UI</h1>
+  <p>Make sure you are logged in and have a valid <code>access</code> token stored in localStorage (from Auth Test UI).</p>
+
+  <!-- List Boards -->
+  <section>
+    <h2>List Boards (GET /api/boards/)</h2>
+    <button onclick="listBoards()">Get Boards</button>
+    <pre id="boards-list-res"></pre>
+  </section>
+
+  <!-- Create Board -->
+  <section>
+    <h2>Create Board (POST /api/boards/)</h2>
+    <form id="create-board-form">
+      <input id="board-name" placeholder="Board name" required />
+      <input id="board-color" placeholder="Color (optional)" />
+      <button type="submit">Create Board</button>
+    </form>
+    <pre id="create-board-res"></pre>
+  </section>
+
+  <!-- Board Details -->
+  <section>
+    <h2>Board Details (GET /api/boards/{id}/)</h2>
+    <input id="board-id-detail" placeholder="Board ID" />
+    <button onclick="getBoard()">Get Details</button>
+    <pre id="board-detail-res"></pre>
+  </section>
+
+  <!-- Update Board -->
+  <section>
+    <h2>Update Board (PATCH /api/boards/{id}/)</h2>
+    <input id="board-id-update" placeholder="Board ID" />
+    <input id="board-new-name" placeholder="New name" />
+    <input id="board-new-color" placeholder="New color" />
+    <button onclick="updateBoard()">Update</button>
+    <pre id="board-update-res"></pre>
+  </section>
+
+  <!-- Delete Board -->
+  <section>
+    <h2>Delete Board (DELETE /api/boards/{id}/)</h2>
+    <input id="board-id-delete" placeholder="Board ID" />
+    <button onclick="deleteBoard()">Delete</button>
+    <pre id="board-delete-res"></pre>
+  </section>
+
+  <!-- Members -->
+  <section>
+    <h2>Board Members (GET /api/boards/{id}/members/)</h2>
+    <input id="board-id-members" placeholder="Board ID" />
+    <button onclick="getMembers()">Get Members</button>
+    <pre id="board-members-res"></pre>
+  </section>
+
+  <!-- Invite -->
+  <section>
+    <h2>Send Invitation (POST /api/boards/{id}/invite/)</h2>
+    <input id="board-id-invite" placeholder="Board ID" />
+    <input id="invite-email" type="email" placeholder="Invitee email" />
+    <button onclick="sendInvite()">Send Invite</button>
+    <pre id="board-invite-res"></pre>
+  </section>
+
+<script>
+const API = "/api/boards/";
+let accessToken = localStorage.getItem("access");
+
+function headers() {
+  return {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + accessToken
+  };
+}
+
+async function listBoards() {
+  const res = await fetch(API, {headers: headers()});
+  document.getElementById("boards-list-res").textContent = await res.text();
+}
+
+document.getElementById("create-board-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const data = {
+    name: document.getElementById("board-name").value,
+    color: document.getElementById("board-color").value
+  };
+  const res = await fetch(API, {method:"POST", headers:headers(), body:JSON.stringify(data)});
+  document.getElementById("create-board-res").textContent = await res.text();
+});
+
+async function getBoard() {
+  const id = document.getElementById("board-id-detail").value;
+  const res = await fetch(API+id+"/", {headers:headers()});
+  document.getElementById("board-detail-res").textContent = await res.text();
+}
+
+async function updateBoard() {
+  const id = document.getElementById("board-id-update").value;
+  const data = {
+    name: document.getElementById("board-new-name").value,
+    color: document.getElementById("board-new-color").value
+  };
+  const res = await fetch(API+id+"/", {method:"PATCH", headers:headers(), body:JSON.stringify(data)});
+  document.getElementById("board-update-res").textContent = await res.text();
+}
+
+async function deleteBoard() {
+  const id = document.getElementById("board-id-delete").value;
+  const res = await fetch(API+id+"/", {method:"DELETE", headers:headers()});
+  document.getElementById("board-delete-res").textContent = "HTTP " + res.status;
+}
+
+async function getMembers() {
+  const id = document.getElementById("board-id-members").value;
+  const res = await fetch(API+id+"/members/", {headers:headers()});
+  document.getElementById("board-members-res").textContent = await res.text();
+}
+
+async function sendInvite() {
+  const id = document.getElementById("board-id-invite").value;
+  const email = document.getElementById("invite-email").value;
+  const res = await fetch(API+id+"/invite/", {method:"POST", headers:headers(), body:JSON.stringify({email})});
+  document.getElementById("board-invite-res").textContent = await res.text();
+}
+</script>
+</body>
+</html>

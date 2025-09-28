@@ -116,3 +116,9 @@ class TaskViewSet(viewsets.ModelViewSet):
 @login_required
 def tasks_test_view(request):
     return render(request, "tasksapp/tasks_test.html")
+
+def lists_test_view(request):
+    return render(request, "tasksapp/lists_test.html")
+
+def tasks_crud_test_view(request):
+    return render(request, "tasksapp/tasks_crud_test.html")

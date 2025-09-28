@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Languages Test</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; }
+    section { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; }
+    button { margin-top: 0.5rem; padding: 0.4rem 1rem; }
+    input, select { margin: 0.3rem 0; padding: 0.4rem; width: 100%; }
+    .response { background: #f8f8f8; padding: 0.7rem; margin-top: 0.5rem; white-space: pre-wrap; }
+  </style>
+  <script>
+    let accessToken = localStorage.getItem("access");
+
+    async function apiRequest(url, method="GET", body=null) {
+      const headers = {"Content-Type": "application/json"};
+      if (accessToken) {
+        headers["Authorization"] = "Bearer " + accessToken;
+      }
+      const res = await fetch(url, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : null
+      });
+      const text = await res.text();
+      return text;
+    }
+
+    async function getLanguages(e) {
+      e.preventDefault();
+      const res = await apiRequest("/api/languages/");
+      document.getElementById("languages-response").textContent = res;
+    }
+
+    async function updateLanguage(e) {
+      e.preventDefault();
+      const lang = document.getElementById("new-lang").value;
+      const res = await apiRequest("/api/accounts/me/", "PATCH", { preferred_language: lang });
+      document.getElementById("update-response").textContent = res;
+    }
+  </script>
+</head>
+<body>
+  <h1>Language API Test</h1>
+  <section>
+    <h2>Update Preferred Language</h2>
+    <form onsubmit="updateLanguage(event)">
+      <select id="new-lang">
+        <option value="en">English</option>
+        <option value="fa">Farsi</option>
+      </select>
+      <button type="submit">Update Language</button>
+    </form>
+    <div id="update-response" class="response"></div>
+  </section>
+</body>
+</html>
