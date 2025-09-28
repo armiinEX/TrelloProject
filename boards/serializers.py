@@ -19,12 +19,12 @@ class UserBriefSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "email", "first_name", "last_name", "preferred_language")
 
 class MemberSerializer(serializers.ModelSerializer):
-    user = UserBriefSerializer(read_only=True)
-    invited_email = serializers.EmailField(read_only=True)
+    username = serializers.CharField(source="user.username", read_only=True)
+    email = serializers.EmailField(source="user.email", read_only=True)
 
     class Meta:
         model = BoardMembership
-        fields = ("id", "user", "invited_email", "role", "status")
+        fields = ["id", "board", "user", "username", "email", "role", "status", "invited_email"]
 
 class InvitationSerializer(serializers.ModelSerializer):
     user = UserBriefSerializer(read_only=True)

@@ -1,38 +1,39 @@
-# 🗂️ Mini Trello (Collaboration & Multi-language)
+# 🗂️ Mini Trello (Django REST Framework + Celery + i18n)
 
-A simplified Trello-like application built with **Django REST Framework** and **React-ready HTML templates**.  
-Supports **authentication, boards, lists, tasks, invitations via email, Celery/Redis, and full i18n (English/Farsi)**.
+A simplified Trello-like project built with **Django REST Framework**.  
+It supports authentication, boards, lists, tasks, invitations via email, Celery/Redis async jobs, and internationalization (English/Farsi).
 
 ---
 
 ## 🚀 Features
 
 - **User Authentication**
-  - Register / Login / Logout (JWT-based with refresh tokens)
-  - Profile management (name, email, preferred language)
+  - JWT-based auth (access/refresh tokens)
+  - Register, login, logout
+  - Manage profile (name, email, preferred language)
 
 - **Boards**
-  - Create, edit, delete boards with color customization
-  - Limit: max **N=5** boards per user (TODO - not enforced yet)
-
-- **Members & Invitations**
-  - Invite members via email (async using **Celery + Redis**)
-  - Track invitation status: Pending / Accepted / Rejected
-  - Limit: max **M=10** members per board, max **K=15** memberships per user (TODO - not enforced yet)
-  - Accept or reject invitations via RESTful endpoints
+  - Create, update, delete boards with max board limit
+  - Membership system with invitations
+  - Member role & status handling
 
 - **Lists & Tasks**
-  - Full CRUD for lists & tasks
+  - Full CRUD for lists and tasks
   - Move tasks between lists
-  - Due dates & ordering supported
+  - Support due dates & ordering
+
+- **Invitations**
+  - Send invitations via email (async with Celery + Redis)
+  - Accept/reject invitations
+  - List received invitations
 
 - **Internationalization (i18n)**
   - Supports English (en) & Farsi (fa)
-  - Easily add new languages by editing translation files
+  - Switch language at runtime
 
-- **Simple UI**
-  - HTML templates for testing auth, boards, tasks, and i18n switch
-  - API-first design, ready for integration with React or Vue
+- **UI Templates**
+  - Plain HTML templates for testing APIs
+  - Ready for frontend integration (React, Vue, etc.)
 
 ---
 
@@ -41,167 +42,162 @@ Supports **authentication, boards, lists, tasks, invitations via email, Celery/R
 - **Backend:** Django 5 + Django REST Framework  
 - **Auth:** JWT (SimpleJWT)  
 - **Async Tasks:** Celery 5 + Redis  
-- **Database:** SQLite (default) → replace with PostgreSQL in production  
+- **Database:** SQLite (default) → can be switched to PostgreSQL  
 - **i18n:** Django translations (`gettext`)  
 - **Testing UI:** Plain HTML templates with Fetch API  
 
 ---
 
-## 📂 Project Structure
+## 🔧 Installation
 
-```
-TrelloProject/
-│── accounts/        # Authentication & user profile
-│── boards/          # Boards, memberships, invitations
-│── tasksapp/        # Lists & tasks
-│── core/            # Main settings, urls, celery app
-│── templates/       # HTML templates for testing UI
-│── locale/          # i18n translations (fa, en, …)
-│── requirements.txt
-│── README.md
-```
-
----
-
-## 🔧 Setup & Installation
-
-### 1. Clone & Install Dependencies
 ```bash
 git clone https://github.com/yourname/mini-trello.git
 cd mini-trello
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-```
 
-### 2. Database Setup
-```bash
+# Run migrations and create superuser:
 python manage.py migrate
 python manage.py createsuperuser
-```
 
-### 3. Run Redis (via Docker or local)
-```bash
+# Run Redis (for Celery tasks):
 docker run -d -p 6379:6379 redis
-```
 
-### 4. Run Celery Worker
-```bash
+# Run Celery:
 celery -A core worker -l info
-```
 
-### 5. Start Django Server
-```bash
+# Start Django server:
 python manage.py runserver
+
+# Default: http://127.0.0.1:8000
 ```
-Server runs at: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ---
 
 ## 🌐 API Endpoints
 
-### 1. Authentication
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST   | `/api/accounts/auth/register/` | Register user |
-| POST   | `/api/accounts/auth/login/`    | Login (JWT) |
-| POST   | `/api/accounts/auth/logout/`   | Logout (invalidate refresh token) |
-| GET    | `/api/accounts/me/`            | Get current profile |
-| PATCH  | `/api/accounts/me/`            | Update profile (name, language) |
+### 1. Authentication & User
 
----
+| Method | URL | Description |
+|--------|-----|-------------|
+| POST | `/api/accounts/auth/register/` | Register new user |
+| POST | `/api/accounts/auth/login/` | Login (returns access + refresh tokens) |
+| POST | `/api/accounts/auth/logout/` | Logout (invalidate refresh token) |
+| GET | `/api/accounts/me/` | Get current user profile |
+| PATCH | `/api/accounts/me/` | Update profile (e.g. name, language) |
+
+**Example:**
+```http
+PATCH /api/accounts/me/
+Authorization: Bearer <access_token>
+Content-Type: application/json
+
+{
+  "first_name": "Armin",
+  "preferred_language": "fa"
+}
+```
 
 ### 2. Boards
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET    | `/api/boards/`             | List user’s boards |
-| POST   | `/api/boards/`             | Create new board |
-| GET    | `/api/boards/{id}/`        | Board details |
-| PATCH  | `/api/boards/{id}/`        | Edit board |
-| DELETE | `/api/boards/{id}/`        | Delete board |
-| GET    | `/api/boards/{id}/members/`| List members of a board |
-| POST   | `/api/boards/{id}/invite/` | Invite a member via email |
 
----
+| Method | URL | Description |
+|--------|-----|-------------|
+| GET | `/api/boards/` | List boards for current user |
+| POST | `/api/boards/` | Create new board |
+| GET | `/api/boards/{board_id}/` | Get board details |
+| PATCH | `/api/boards/{board_id}/` | Update board |
+| DELETE | `/api/boards/{board_id}/` | Delete board |
+| GET | `/api/boards/{board_id}/members/` | List members of board |
+| POST | `/api/boards/{board_id}/invite/` | Send invitation |
 
 ### 3. Invitations
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET    | `/api/invitations/`     | List invitations received |
-| PATCH  | `/api/invitations/{id}/`| Accept or reject an invitation |
 
----
+| Method | URL | Description |
+|--------|-----|-------------|
+| GET | `/api/invitations/` | List received invitations |
+| PATCH | `/api/invitations/{invitation_id}/` | Accept/Reject invitation |
+
+**Example:**
+```http
+PATCH /api/invitations/12/
+Authorization: Bearer <access_token>
+Content-Type: application/json
+
+{
+  "status": "accepted"
+}
+```
 
 ### 4. Lists
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET    | `/api/boards/{id}/lists/` | List lists in board |
-| POST   | `/api/boards/{id}/lists/` | Create list |
-| GET    | `/api/lists/{id}/`        | List details |
-| PATCH  | `/api/lists/{id}/`        | Update list |
-| DELETE | `/api/lists/{id}/`        | Delete list |
 
----
+| Method | URL | Description |
+|--------|-----|-------------|
+| GET | `/api/boards/{board_id}/lists/` | List lists in a board |
+| POST | `/api/boards/{board_id}/lists/` | Create new list |
+| GET | `/api/lists/{list_id}/` | List details |
+| PATCH | `/api/lists/{list_id}/` | Update list |
+| DELETE | `/api/lists/{list_id}/` | Delete list |
 
 ### 5. Tasks
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET    | `/api/lists/{id}/tasks/` | List tasks in a list |
-| POST   | `/api/lists/{id}/tasks/` | Create task |
-| GET    | `/api/tasks/{id}/`       | Task details |
-| PATCH  | `/api/tasks/{id}/`       | Update task (title, due date, list, order) |
-| DELETE | `/api/tasks/{id}/`       | Delete task |
 
----
+| Method | URL | Description |
+|--------|-----|-------------|
+| GET | `/api/lists/{list_id}/tasks/` | List tasks in a list |
+| POST | `/api/lists/{list_id}/tasks/` | Create task |
+| GET | `/api/tasks/{task_id}/` | Task details |
+| PATCH | `/api/tasks/{task_id}/` | Update task (move to list, set due date, reorder) |
+| DELETE | `/api/tasks/{task_id}/` | Delete task |
 
 ### 6. Multi-language
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET    | `/api/languages/` | List available languages (TODO) |
-| PATCH  | `/api/accounts/me/` | Change preferred language |
+
+| Method | URL | Description |
+|--------|-----|-------------|
+| GET | `/api/languages/` | List supported languages |
+| PATCH | `/api/accounts/me/` | Update preferred language |
 
 ---
 
-## 🖥️ Testing via HTML Templates
-- `http://127.0.0.1:8000/` → Home page  
-- `http://127.0.0.1:8000/api/accounts/auth/test-ui/` → Auth test (register/login/profile/logout)  
-- `http://127.0.0.1:8000/boards/invite-test/` → Invite members test page  
-- `http://127.0.0.1:8000/boards/lang-test/` → i18n test page  
-- `http://127.0.0.1:8000/tasksapp/tasks-test/` → Tasks test page  
+## 🖥️ HTML Test Pages
+
+The project includes simple test templates:
+
+| URL | Template |
+|-----|----------|
+| `/` | home.html |
+| `/api/accounts/auth/test-ui/` | accounts/auth_test.html |
+| `/boards-ui/` | boards/board_list.html |
+| `/tasksapp/tasks-test/` | tasksapp/tasks_test.html |
+| `/<lang>/boards/invite-test/` | boards/invite.html |
+| `/<lang>/boards/lang-test/` | boards/language_test.html |
 
 ---
 
-## 📖 i18n Usage
+## 📖 i18n
+
+To create/compile translations:
 ```bash
-# Create translation files
 django-admin makemessages -l fa
 django-admin makemessages -l en
-
-# Edit .po files inside locale/
-
-# Compile translations
 django-admin compilemessages
 ```
 
-**Test with header:**
-```
+Switch language with header:
+```http
 GET /api/boards/
 Accept-Language: fa
 ```
 
 ---
 
-## ✅ Evaluation Criteria
-- ✅ Correct database modeling  
-- ✅ Proper REST API design  
-- ✅ Authentication & Permissions implemented  
-- ✅ Email sending works with Celery  
-- ✅ Limitations enforced (N boards, M members, K memberships)  
-- ✅ Multi-language support works cleanly  
-- ✅ Simple functional UI templates included  
-- ✅ Documentation complete  
+## ✅ Notes
+
+- JWT tokens expire in 5 minutes (access) & 1 day (refresh) – configurable in settings.py under SIMPLE_JWT.
+- Limits: max 5 boards per user, max 10 members per board, max 15 memberships per user.
+- Email sending works via Celery & Redis.
 
 ---
 
 ## 📜 License
+
 MIT License – free to use and modify.

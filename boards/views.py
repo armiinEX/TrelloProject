@@ -12,6 +12,7 @@ from .serializers import BoardSerializer
 from .permissions import IsOwnerOrReadOnly
 from .tasks import send_invitation_email
 from django.db.models import Q
+from .serializers import MemberSerializer
 
 
 

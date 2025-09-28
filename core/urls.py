@@ -28,7 +28,6 @@ from django.conf.urls.i18n import i18n_patterns
 from .views import home_view
 # from boards.views import InvitationViewSet
 from django.urls import path
-from .views import LanguagesView, UserLanguageUpdateView
 
 
 
@@ -81,8 +80,3 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path("boards/", include("boards.urls")),
 )
-
-urlpatterns += [
-    path("languages/", LanguagesView.as_view(), name="languages"),
-    path("me/language/", UserLanguageUpdateView.as_view(), name="profile-language"),
-]
