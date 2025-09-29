@@ -52,7 +52,7 @@ It supports authentication, boards, lists, tasks, invitations via email, Celery/
 
 ```bash
 git clone https://github.com/yourname/mini-trello.git
-cd mini-trello
+cd TrelloProject
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
