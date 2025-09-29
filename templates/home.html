@@ -2,19 +2,140 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mini Trello</title>
+    <style>
+        :root {
+            --bg-start: #0ea5e9;
+            --bg-end: #8b5cf6;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text: #0f172a;
+            --muted: #475569;
+            --border: rgba(15, 23, 42, 0.08);
+            --link: #0ea5e9;
+            --link-hover-bg: rgba(14, 165, 233, 0.08);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --card-bg: rgba(2, 6, 23, 0.6);
+                --text: #e2e8f0;
+                --muted: #94a3b8;
+                --border: rgba(148, 163, 184, 0.15);
+                --link: #7dd3fc;
+                --link-hover-bg: rgba(125, 211, 252, 0.12);
+            }
+        }
+
+        * { box-sizing: border-box; }
+        html, body {
+            height: 100%;
+        }
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            color: var(--text);
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 780px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.15);
+            backdrop-filter: saturate(120%) blur(6px);
+            -webkit-backdrop-filter: saturate(120%) blur(6px);
+            padding: 28px;
+        }
+
+        h1 {
+            margin: 0 0 18px 0;
+            font-size: 28px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            margin: 0 0 22px 0;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        a {
+            display: block;
+            padding: 12px 14px;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            transition: background 160ms ease, transform 120ms ease, box-shadow 160ms ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            a {
+                background: rgba(2, 6, 23, 0.25);
+            }
+        }
+
+        a:hover {
+            background: var(--link-hover-bg);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(2, 6, 23, 0.12);
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 12px;
+            color: var(--link);
+            background: rgba(14, 165, 233, 0.12);
+            padding: 2px 8px;
+            border-radius: 999px;
+            margin-left: 8px;
+            border: 1px solid var(--border);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+    </style>
+    
 </head>
 <body>
-    <h1>Welcome to Mini Trello 🚀</h1>
-    <ul>
-        <li><a href="/api/docs/">API Docs (Swagger)</a></li>
-        <li><a href="/boards-ui/">Boards UI</a></li>
-        <li><a href="/api/accounts/auth/test-ui/">Auth Test</a></li>
-        <li><a href="/en/boards/boards-test/">Boards Test</a></li>
-        <li><a href="/en/boards/invitations-test/">Invitations Test</a></li>
-        <li><a href="/tasksapp/lists-test/">Lists Test</a></li>
-        <li><a href="/tasksapp/tasks-crud-test/">Tasks CRUD Test</a></li>
-        <li><a href="/api/accounts/auth/languages-test/">Languages Test</a></li>
-    </ul>
+    <div class="container">
+        <div class="card">
+            <h1>Welcome to Mini Trello 🚀</h1>
+            <p class="subtitle">Quick links for developing and testing features</p>
+            <ul>
+                <li><a href="/api/docs/">API Docs (Swagger) <span class="tag">API</span></a></li>
+                <li><a href="/api/accounts/auth/test-ui/">Auth Test</a></li>
+                <li><a href="/en/boards/boards-test/">Boards Test</a></li>
+                <li><a href="/en/boards/invitations-test/">Invitations Test</a></li>
+                <li><a href="/tasksapp/lists-test/">Lists Test</a></li>
+                <li><a href="/tasksapp/tasks-crud-test/">Tasks CRUD Test</a></li>
+                <li><a href="/api/accounts/auth/languages-test/">Languages Test</a></li>
+            </ul>
+            <footer>Made with ❤️ for fast iteration</footer>
+        </div>
+    </div>
 </body>
 </html>
