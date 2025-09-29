@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -135,6 +135,7 @@ class UserLanguageUpdateView(APIView):
         resp["Content-Language"] = lang
         return resp
 
+@ensure_csrf_cookie
 def languages_test_view(request):
     return render(request, "accounts/languages_test.html")
 
