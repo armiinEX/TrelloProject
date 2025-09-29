@@ -20,36 +20,36 @@ msgstr ""
 
 #: accounts/models.py:9 templates/accounts/languages_test.html:51
 msgid "English"
-msgstr ""
+msgstr "انگلیسی"
 
 #: accounts/models.py:9 templates/accounts/languages_test.html:52
 msgid "Farsi"
-msgstr ""
+msgstr "فارسی"
 
 #: accounts/models.py:11
 msgid "Preferred Language"
-msgstr ""
+msgstr "زبان ترجیحی"
 
 #: accounts/models.py:12
 msgid "Preferred language for the user interface"
-msgstr ""
+msgstr "زبان ترجیحی برای رابط کاربری"
 
 #: accounts/views.py:68
 msgid "Successfully logged out"
-msgstr ""
+msgstr "با موفقیت خارج شدید"
 
 #: accounts/views.py:70
 msgid "Invalid token"
-msgstr ""
+msgstr "توکن نامعتبر است"
 
 #: accounts/views.py:112
 msgid "preferred_language is required"
-msgstr ""
+msgstr "preferred_language الزامی است"
 
 #: accounts/views.py:117
 #, python-format
 msgid "Invalid language. Allowed: %(allowed)s"
-msgstr ""
+msgstr "زبان نامعتبر است. مجاز: %(allowed)s"
 
 #: boards/models.py:10
 msgid "Board Name"
@@ -85,74 +85,74 @@ msgstr ""
 
 #: boards/templates/boards/board_list.html:2
 msgid "My Boards"
-msgstr ""
+msgstr "بردهای من"
 
 #: boards/templates/boards/invite.html:6
 msgid "Invite to Board"
-msgstr ""
+msgstr "دعوت به برد"
 
 #: boards/templates/boards/invite.html:9
 msgid "Invite User to Board"
-msgstr ""
+msgstr "دعوت کاربر به برد"
 
 #: boards/templates/boards/invite.html:12 templates/boards/boards_test.html:45
 #: templates/boards/boards_test.html:53 templates/boards/boards_test.html:63
 #: templates/boards/boards_test.html:71 templates/boards/boards_test.html:79
 #: templates/tasksapp/lists_test.html:75 templates/tasksapp/lists_test.html:84
 msgid "Board ID"
-msgstr ""
+msgstr "شناسهٔ برد"
 
 #: boards/templates/boards/invite.html:15 templates/accounts/auth_test.html:85
 #: templates/accounts/auth_test_full.html:36
 msgid "Email"
-msgstr ""
+msgstr "ایمیل"
 
 #: boards/templates/boards/invite.html:18 templates/boards/boards_test.html:81
 msgid "Send Invite"
-msgstr ""
+msgstr "ارسال دعوت"
 
 #: boards/templates/boards/language_test.html:6
 msgid "Language Test"
-msgstr ""
+msgstr "تست زبان"
 
 #: boards/templates/boards/language_test.html:9
 msgid "Boards (i18n test)"
-msgstr ""
+msgstr "بردها (آزمون i18n)"
 
 #: boards/templates/boards/language_test.html:15
 msgid "Load Boards"
-msgstr ""
+msgstr "بارگذاری بردها"
 
 #: boards/views.py:37 boards/views.py:91
 msgid "Email is required"
-msgstr ""
+msgstr "ایمیل الزامی است"
 
 #: boards/views.py:50
 #, python-format
 msgid "%(email)s added as member"
-msgstr ""
+msgstr "%(email)s به‌عنوان عضو اضافه شد"
 
 #: boards/views.py:52
 #, python-format
 msgid "%(email)s is already a member or invite exists"
-msgstr ""
+msgstr "%(email)s از قبل عضو است یا دعوت موجود است"
 
 #: boards/views.py:59
 #, python-format
 msgid "Invitation created for %(email)s"
-msgstr ""
+msgstr "دعوت برای %(email)s ایجاد شد"
 
 #: boards/views.py:105
 msgid "Invitation sent successfully!"
-msgstr ""
+msgstr "دعوت با موفقیت ارسال شد!"
 
 #: boards/views.py:116
 msgid "No pending invite found"
-msgstr ""
+msgstr "دعوت در انتظاری یافت نشد"
 
 #: boards/views.py:121
 msgid "You have joined the board!"
-msgstr ""
+msgstr "به برد پیوستید!"
 
 #: tasksapp/models.py:8
 msgid "List Title"
@@ -168,7 +168,7 @@ msgstr ""
 
 #: tasksapp/models.py:21 templates/tasksapp/tasks_crud_test.html:93
 msgid "Due Date"
-msgstr ""
+msgstr "تاریخ سررسید"
 
 #: tasksapp/models.py:22
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:484
@@ -186,208 +186,212 @@ msgstr ""
 
 #: tasksapp/templates/tasksapp/tasks_test.html:6
 msgid "Task API Test"
-msgstr ""
+msgstr "تست API تسک"
 
 #: tasksapp/templates/tasksapp/tasks_test.html:9
 #: tasksapp/templates/tasksapp/tasks_test.html:15
 #: templates/tasksapp/tasks_crud_test.html:89
 msgid "Create Task"
-msgstr ""
+msgstr "ایجاد تسک"
 
 #: tasksapp/templates/tasksapp/tasks_test.html:11
-#: templates/tasksapp/lists_test.html:94 templates/tasksapp/lists_test.html:103
+#: templates/tasksapp/lists_test.html:94
+#: templates/tasksapp/lists_test.html:103
 #: templates/tasksapp/lists_test.html:113
 #: templates/tasksapp/tasks_crud_test.html:82
 #: templates/tasksapp/tasks_crud_test.html:91
 msgid "List ID"
-msgstr ""
+msgstr "شناسهٔ لیست"
 
 #: tasksapp/templates/tasksapp/tasks_test.html:13
 msgid "Title"
-msgstr ""
+msgstr "عنوان"
 
 #: tasksapp/views.py:49
 msgid "Board must be provided."
-msgstr ""
+msgstr "برد باید تعیین شود."
 
 #: tasksapp/views.py:53 tasksapp/views.py:89
 msgid "You are not a member of this board."
-msgstr ""
+msgstr "شما عضو این برد نیستید."
 
 #: tasksapp/views.py:83
 msgid "List is required."
-msgstr ""
+msgstr "لیست الزامی است."
 
 #: tasksapp/views.py:109
 msgid "You are not a member of the destination board."
-msgstr ""
+msgstr "شما عضو برد مقصد نیستید."
 
 #: templates/accounts/auth_test.html:7 templates/home.html:131
 msgid "Auth Test"
-msgstr ""
+msgstr "تست احراز هویت"
 
 #: templates/accounts/auth_test.html:80
 msgid "Auth Test Page"
-msgstr ""
+msgstr "صفحهٔ تست احراز هویت"
 
 #: templates/accounts/auth_test.html:83 templates/accounts/auth_test.html:87
 #: templates/accounts/auth_test_full.html:31
 #: templates/accounts/auth_test_full.html:43
 msgid "Register"
-msgstr ""
+msgstr "ثبت‌نام"
 
 #: templates/accounts/auth_test.html:84 templates/accounts/auth_test.html:93
 #: templates/accounts/auth_test_full.html:33
 #: templates/accounts/auth_test_full.html:55
 msgid "Username"
-msgstr ""
+msgstr "نام کاربری"
 
 #: templates/accounts/auth_test.html:86 templates/accounts/auth_test.html:94
 #: templates/accounts/auth_test_full.html:39
 #: templates/accounts/auth_test_full.html:58
 msgid "Password"
-msgstr ""
+msgstr "گذرواژه"
 
 #: templates/accounts/auth_test.html:92 templates/accounts/auth_test.html:95
 #: templates/accounts/auth_test_full.html:53
 #: templates/accounts/auth_test_full.html:62
 msgid "Login"
-msgstr ""
+msgstr "ورود"
 
 #: templates/accounts/auth_test.html:100
 msgid "Profile"
-msgstr ""
+msgstr "پروفایل"
 
 #: templates/accounts/auth_test.html:101
 #: templates/accounts/auth_test_full.html:80
 msgid "Get Profile"
-msgstr ""
+msgstr "دریافت پروفایل"
 
 #: templates/accounts/auth_test.html:106
 msgid "Update Profile"
-msgstr ""
+msgstr "به‌روزرسانی پروفایل"
 
 #: templates/accounts/auth_test.html:107
 #: templates/accounts/auth_test_full.html:85
 #: templates/accounts/auth_test_full.html:86
 msgid "First name"
-msgstr ""
+msgstr "نام"
 
 #: templates/accounts/auth_test.html:108
 msgid "Preferred language (fa/en)"
-msgstr ""
+msgstr "زبان ترجیحی (fa/en)"
 
 #: templates/accounts/auth_test.html:109 templates/boards/boards_test.html:56
 #: templates/tasksapp/lists_test.html:105
 #: templates/tasksapp/tasks_crud_test.html:115
 msgid "Update"
-msgstr ""
+msgstr "به‌روزرسانی"
 
 #: templates/accounts/auth_test.html:114 templates/accounts/auth_test.html:115
 #: templates/accounts/auth_test_full.html:100
 msgid "Logout"
-msgstr ""
+msgstr "خروج"
 
 #: templates/accounts/auth_test_full.html:6
 msgid "Auth Test UI — Register / Login / Profile"
-msgstr ""
+msgstr "رابط تست احراز هویت — ثبت‌نام / ورود / پروفایل"
 
 #: templates/accounts/auth_test_full.html:26
 msgid "Authentication Test UI"
-msgstr ""
+msgstr "رابط تست احراز هویت"
 
 #: templates/accounts/auth_test_full.html:27
 msgid "Endpoints tested:"
-msgstr ""
+msgstr "اندپوینت‌های مورد آزمایش:"
 
 #: templates/accounts/auth_test_full.html:44
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:527
 msgid "Clear"
-msgstr ""
+msgstr "پاک‌کردن"
 
 #: templates/accounts/auth_test_full.html:63
 #: templates/accounts/auth_test_full.html:113
 msgid "Refresh Access"
-msgstr ""
+msgstr "تازه‌سازی دسترسی"
 
 #: templates/accounts/auth_test_full.html:78
 msgid "Profile (GET / PATCH)"
-msgstr ""
+msgstr "پروفایل (GET / PATCH)"
 
 #: templates/accounts/auth_test_full.html:81
 msgid "Load into form"
-msgstr ""
+msgstr "بارگذاری در فرم"
 
 #: templates/accounts/auth_test_full.html:88
 #: templates/accounts/auth_test_full.html:89
 msgid "Last name"
-msgstr ""
+msgstr "نام خانوادگی"
 
 #: templates/accounts/auth_test_full.html:91
 msgid "Preferred language"
-msgstr ""
+msgstr "زبان ترجیحی"
 
 #: templates/accounts/auth_test_full.html:93
 msgid "(no change)"
-msgstr ""
+msgstr "(بدون تغییر)"
 
 #: templates/accounts/auth_test_full.html:99
 msgid "Update Profile (PATCH)"
-msgstr ""
+msgstr "به‌روزرسانی پروفایل (PATCH)"
 
 #: templates/accounts/auth_test_full.html:104
 msgid "Response (GET):"
-msgstr ""
+msgstr "پاسخ (GET):"
 
 #: templates/accounts/auth_test_full.html:106
 msgid "Response (PATCH):"
-msgstr ""
+msgstr "پاسخ (PATCH):"
 
 #: templates/accounts/auth_test_full.html:112
 msgid "Notes & Helpers"
-msgstr ""
+msgstr "یادداشت‌ها و راهنماها"
 
 #: templates/accounts/auth_test_full.html:113
 msgid ""
 "Make sure to use trailing slashes in URLs. If your access token expires, "
 "press"
 msgstr ""
+"اطمینان حاصل کنید در URL ها اسلش پایانی را استفاده کنید. اگر توکن دسترسی شما"
+" منقضی شد، دکمهٔ"
 
 #: templates/accounts/auth_test_full.html:113
 msgid "to get a new access token using the stored refresh token"
 msgstr ""
+"را بزنید تا با استفاده از رفرش‌توکن ذخیره‌شده، توکن دسترسی جدید دریافت کنید"
 
 #: templates/accounts/auth_test_full.html:114
 msgid "Stored tokens (localStorage):"
-msgstr ""
+msgstr "توکن‌های ذخیره‌شده (localStorage):"
 
 #: templates/accounts/lang_test.html:7
 msgid "Language test"
-msgstr ""
+msgstr "تست زبان"
 
 #: templates/accounts/lang_test.html:10
 msgid "Languages"
-msgstr ""
+msgstr "زبان‌ها"
 
 #: templates/accounts/lang_test.html:11
 msgid "Loading..."
-msgstr ""
+msgstr "در حال بارگذاری..."
 
 #: templates/accounts/lang_test.html:13
 msgid "Set my language"
-msgstr ""
+msgstr "تنظیم زبان من"
 
 #: templates/accounts/lang_test.html:14
 msgid "e.g. fa or en"
-msgstr ""
+msgstr "مثلاً fa یا en"
 
 #: templates/accounts/lang_test.html:15
 msgid "Set language"
-msgstr ""
+msgstr "تنظیم زبان"
 
 #: templates/accounts/languages_test.html:6 templates/home.html:136
 msgid "Languages Test"
-msgstr ""
+msgstr "تست زبان‌ها"
 
 #: templates/accounts/languages_test.html:46
 msgid "Language API Test"
@@ -403,243 +407,243 @@ msgstr ""
 
 #: templates/boards/boards_test.html:6 templates/boards/boards_test.html:21
 msgid "Boards Test UI"
-msgstr ""
+msgstr "رابط تست بردها"
 
 #: templates/boards/boards_test.html:22
 msgid "Make sure you are logged in and have a valid"
-msgstr ""
+msgstr "اطمینان حاصل کنید وارد شده‌اید و"
 
 #: templates/boards/boards_test.html:22
 msgid "token stored in localStorage (from Auth Test UI)."
-msgstr ""
+msgstr "توکن معتبر در localStorage (از رابط تست احراز هویت) دارید."
 
 #: templates/boards/boards_test.html:26
 msgid "List Boards (GET /api/boards/)"
-msgstr ""
+msgstr "فهرست بردها (GET /api/boards/)"
 
 #: templates/boards/boards_test.html:27
 msgid "Get Boards"
-msgstr ""
+msgstr "دریافت بردها"
 
 #: templates/boards/boards_test.html:33
 msgid "Create Board (POST /api/boards/)"
-msgstr ""
+msgstr "ایجاد برد (POST /api/boards/)"
 
 #: templates/boards/boards_test.html:35
 msgid "Board name"
-msgstr ""
+msgstr "نام برد"
 
 #: templates/boards/boards_test.html:36
 msgid "Color (optional)"
-msgstr ""
+msgstr "رنگ (اختیاری)"
 
 #: templates/boards/boards_test.html:37
 msgid "Create Board"
-msgstr ""
+msgstr "ایجاد برد"
 
 #: templates/boards/boards_test.html:44
 #, python-brace-format
 msgid "Board Details (GET /api/boards/{id}/)"
-msgstr ""
+msgstr "جزئیات برد (GET /api/boards/{id}/)"
 
 #: templates/boards/boards_test.html:46 templates/tasksapp/lists_test.html:95
 #: templates/tasksapp/tasks_crud_test.html:103
 msgid "Get Details"
-msgstr ""
+msgstr "دریافت جزئیات"
 
 #: templates/boards/boards_test.html:52
 #, python-brace-format
 msgid "Update Board (PATCH /api/boards/{id}/)"
-msgstr ""
+msgstr "به‌روزرسانی برد (PATCH /api/boards/{id}/)"
 
 #: templates/boards/boards_test.html:54
 msgid "New name"
-msgstr ""
+msgstr "نام جدید"
 
 #: templates/boards/boards_test.html:55
 msgid "New color"
-msgstr ""
+msgstr "رنگ جدید"
 
 #: templates/boards/boards_test.html:62
 #, python-brace-format
 msgid "Delete Board (DELETE /api/boards/{id}/)"
-msgstr ""
+msgstr "حذف برد (DELETE /api/boards/{id}/)"
 
 #: templates/boards/boards_test.html:64 templates/tasksapp/lists_test.html:114
 #: templates/tasksapp/tasks_crud_test.html:124
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:499
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: templates/boards/boards_test.html:70
 #, python-brace-format
 msgid "Board Members (GET /api/boards/{id}/members/)"
-msgstr ""
+msgstr "اعضای برد (GET /api/boards/{id}/members/)"
 
 #: templates/boards/boards_test.html:72
 msgid "Get Members"
-msgstr ""
+msgstr "دریافت اعضا"
 
 #: templates/boards/boards_test.html:78
 #, python-brace-format
 msgid "Send Invitation (POST /api/boards/{id}/invite/)"
-msgstr ""
+msgstr "ارسال دعوت (POST /api/boards/{id}/invite/)"
 
 #: templates/boards/boards_test.html:80
 msgid "Invitee email"
-msgstr ""
+msgstr "ایمیل دعوت‌شونده"
 
 #: templates/boards/invitations_test.html:6 templates/home.html:133
 msgid "Invitations Test"
-msgstr ""
+msgstr "تست دعوت‌ها"
 
 #: templates/boards/invitations_test.html:46
 msgid "Invitations Test Page"
-msgstr ""
+msgstr "صفحهٔ تست دعوت‌ها"
 
 #: templates/boards/invitations_test.html:49
 msgid "List Invitations"
-msgstr ""
+msgstr "فهرست دعوت‌ها"
 
 #: templates/boards/invitations_test.html:50
 msgid "Get My Invitations"
-msgstr ""
+msgstr "دریافت دعوت‌های من"
 
 #: templates/boards/invitations_test.html:55
 #: templates/boards/invitations_test.html:62
 msgid "Update Invitation"
-msgstr ""
+msgstr "به‌روزرسانی دعوت"
 
 #: templates/boards/invitations_test.html:57
 msgid "Invitation ID"
-msgstr ""
+msgstr "شناسهٔ دعوت"
 
 #: templates/boards/invitations_test.html:59
 msgid "Accept"
-msgstr ""
+msgstr "پذیرفتن"
 
 #: templates/boards/invitations_test.html:60
 msgid "Reject"
-msgstr ""
+msgstr "رد کردن"
 
 #: templates/home.html:7
 msgid "Mini Trello"
-msgstr ""
+msgstr "مینی ترلو"
 
 #: templates/home.html:127
 msgid "Welcome to Mini Trello 🚀"
-msgstr ""
+msgstr "خوش آمدید به مینی ترلو 🚀"
 
 #: templates/home.html:128
 msgid "Quick links for developing and testing features"
-msgstr ""
+msgstr "میانبرهای سریع برای توسعه و تست قابلیت‌ها"
 
 #: templates/home.html:130
 msgid "API Docs (Swagger)"
-msgstr ""
+msgstr "مستندات API (Swagger)"
 
 #: templates/home.html:130
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: templates/home.html:132
 msgid "Boards Test"
-msgstr ""
+msgstr "تست بردها"
 
 #: templates/home.html:134 templates/tasksapp/lists_test.html:6
 msgid "Lists Test"
-msgstr ""
+msgstr "تست لیست‌ها"
 
 #: templates/home.html:135
 msgid "Tasks CRUD Test"
-msgstr ""
+msgstr "تست CRUD تسک‌ها"
 
 #: templates/home.html:138
 msgid "Made with ❤️ for fast iteration"
-msgstr ""
+msgstr "ساخته‌شده با ❤️ برای تکرار سریع"
 
 #: templates/tasksapp/lists_test.html:70
 msgid "Lists Test Page"
-msgstr ""
+msgstr "صفحهٔ تست لیست‌ها"
 
 #: templates/tasksapp/lists_test.html:73
 msgid "Get Lists in Board"
-msgstr ""
+msgstr "دریافت لیست‌ها در برد"
 
 #: templates/tasksapp/lists_test.html:76
 msgid "Get Lists"
-msgstr ""
+msgstr "دریافت لیست‌ها"
 
 #: templates/tasksapp/lists_test.html:82
 msgid "Create List"
-msgstr ""
+msgstr "ایجاد لیست"
 
 #: templates/tasksapp/lists_test.html:85
 msgid "List Name"
-msgstr ""
+msgstr "نام لیست"
 
 #: templates/tasksapp/lists_test.html:86
 #: templates/tasksapp/tasks_crud_test.html:94
 msgid "Create"
-msgstr ""
+msgstr "ایجاد"
 
 #: templates/tasksapp/lists_test.html:92
 msgid "Get List Details"
-msgstr ""
+msgstr "دریافت جزئیات لیست"
 
 #: templates/tasksapp/lists_test.html:101
 msgid "Update List"
-msgstr ""
+msgstr "به‌روزرسانی لیست"
 
 #: templates/tasksapp/lists_test.html:104
 msgid "New List Name"
-msgstr ""
+msgstr "نام جدید لیست"
 
 #: templates/tasksapp/lists_test.html:111
 msgid "Delete List"
-msgstr ""
+msgstr "حذف لیست"
 
 #: templates/tasksapp/tasks_crud_test.html:6
 msgid "Tasks Test"
-msgstr ""
+msgstr "تست تسک‌ها"
 
 #: templates/tasksapp/tasks_crud_test.html:77
 msgid "Tasks Test Page"
-msgstr ""
+msgstr "صفحهٔ تست تسک‌ها"
 
 #: templates/tasksapp/tasks_crud_test.html:80
 msgid "Get Tasks in List"
-msgstr ""
+msgstr "دریافت تسک‌های یک لیست"
 
 #: templates/tasksapp/tasks_crud_test.html:83
 msgid "Get Tasks"
-msgstr ""
+msgstr "دریافت تسک‌ها"
 
 #: templates/tasksapp/tasks_crud_test.html:100
 msgid "Get Task Details"
-msgstr ""
+msgstr "دریافت جزئیات تسک"
 
 #: templates/tasksapp/tasks_crud_test.html:102
 #: templates/tasksapp/tasks_crud_test.html:111
 #: templates/tasksapp/tasks_crud_test.html:123
 msgid "Task ID"
-msgstr ""
+msgstr "شناسهٔ تسک"
 
 #: templates/tasksapp/tasks_crud_test.html:109
 msgid "Update Task"
-msgstr ""
+msgstr "به‌روزرسانی تسک"
 
 #: templates/tasksapp/tasks_crud_test.html:112
 msgid "New Title"
-msgstr ""
+msgstr "عنوان جدید"
 
 #: templates/tasksapp/tasks_crud_test.html:113
 msgid "New List ID"
-msgstr ""
+msgstr "شناسهٔ لیست جدید"
 
 #: templates/tasksapp/tasks_crud_test.html:114
 msgid "New Due Date"
-msgstr ""
+msgstr "تاریخ سررسید جدید"
 
 #: templates/tasksapp/tasks_crud_test.html:121
 msgid "Delete Task"
@@ -987,8 +991,8 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:297
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
-"hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
+" hyphens."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:309
@@ -1200,15 +1204,15 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1562
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
-"uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
-"[TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
@@ -1227,8 +1231,8 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1864
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
-"uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
@@ -1387,7 +1391,8 @@ msgid "Many-to-many relationship"
 msgstr ""
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the label
+#. characters will prevent the default label_suffix to be appended to the
+#. label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
 msgstr ""
@@ -1437,7 +1442,8 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:644
 #, python-format
-msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid ""
+"Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1535,7 +1541,8 @@ msgid "The inline value did not match the parent instance."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
-msgid "Select a valid choice. That choice is not one of the available choices."
+msgid ""
+"Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1594
@@ -1991,10 +1998,10 @@ msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
-"including the “Referrer-Policy: no-referrer” header, please remove them. The "
-"CSRF protection requires the “Referer” header to do strict referer checking. "
-"If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
+" including the “Referrer-Policy: no-referrer” header, please remove them. "
+"The CSRF protection requires the “Referer” header to do strict referer "
+"checking. If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 
@@ -2046,8 +2053,8 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:680
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because %(class_name)s."
-"allow_future is False."
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
@@ -2105,10 +2112,10 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
-"%(version)s/ref/settings/#debug\" target=\"_blank\" "
-"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
-"configured any URLs."
+"You are seeing this page because <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
+"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
+"and you have not configured any URLs."
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
@@ -2155,8 +2162,7 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/drf_spectacular/views.py:45
 msgid ""
 "\n"
-"    OpenApi3 schema for this API. Format can be selected via content "
-"negotiation.\n"
+"    OpenApi3 schema for this API. Format can be selected via content negotiation.\n"
 "\n"
 "    - YAML: application/vnd.oai.openapi\n"
 "    - JSON: application/vnd.oai.openapi+json\n"

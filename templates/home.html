@@ -129,8 +129,8 @@
             <ul>
                 <li><a href="/api/docs/">{% trans "API Docs (Swagger)" %} <span class="tag">{% trans "API" %}</span></a></li>
                 <li><a href="/api/accounts/auth/test-ui/">{% trans "Auth Test" %}</a></li>
-                <li><a href="/en/boards/boards-test/">{% trans "Boards Test" %}</a></li>
-                <li><a href="/en/boards/invitations-test/">{% trans "Invitations Test" %}</a></li>
+                <li><a href="{% url 'boards:boards_test' %}">{% trans "Boards Test" %}</a></li>
+                <li><a href="{% url 'boards:invitations_test' %}">{% trans "Invitations Test" %}</a></li>
                 <li><a href="/tasksapp/lists-test/">{% trans "Lists Test" %}</a></li>
                 <li><a href="/tasksapp/tasks-crud-test/">{% trans "Tasks CRUD Test" %}</a></li>
                 <li><a href="/api/accounts/auth/languages-test/">{% trans "Languages Test" %}</a></li>
