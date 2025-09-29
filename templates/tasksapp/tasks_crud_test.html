@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tasks Test</title>
+  {% load i18n %}
+  <title>{% trans "Tasks Test" %}</title>
   <style>
     body { font-family: sans-serif; max-width: 700px; margin: 2rem auto; }
     section { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; }
@@ -73,54 +74,54 @@
   </script>
 </head>
 <body>
-  <h1>Tasks Test Page</h1>
+  <h1>{% trans "Tasks Test Page" %}</h1>
 
   <section>
-    <h2>Get Tasks in List</h2>
+    <h2>{% trans "Get Tasks in List" %}</h2>
     <form onsubmit="getTasks(event)">
-      <input id="list-id" placeholder="List ID" required>
-      <button type="submit">Get Tasks</button>
+      <input id="list-id" placeholder="{% trans "List ID" %}" required>
+      <button type="submit">{% trans "Get Tasks" %}</button>
     </form>
     <div id="tasks-response" class="response"></div>
   </section>
 
   <section>
-    <h2>Create Task</h2>
+    <h2>{% trans "Create Task" %}</h2>
     <form onsubmit="createTask(event)">
-      <input id="create-list-id" placeholder="List ID" required>
-      <input id="task-title" placeholder="Task Title" required>
-      <input id="task-due" type="date" placeholder="Due Date">
-      <button type="submit">Create</button>
+      <input id="create-list-id" placeholder="{% trans "List ID" %}" required>
+      <input id="task-title" placeholder="{% trans "Task Title" %}" required>
+      <input id="task-due" type="date" placeholder="{% trans "Due Date" %}">
+      <button type="submit">{% trans "Create" %}</button>
     </form>
     <div id="create-response" class="response"></div>
   </section>
 
   <section>
-    <h2>Get Task Details</h2>
+    <h2>{% trans "Get Task Details" %}</h2>
     <form onsubmit="getTaskDetail(event)">
-      <input id="detail-id" placeholder="Task ID" required>
-      <button type="submit">Get Details</button>
+      <input id="detail-id" placeholder="{% trans "Task ID" %}" required>
+      <button type="submit">{% trans "Get Details" %}</button>
     </form>
     <div id="detail-response" class="response"></div>
   </section>
 
   <section>
-    <h2>Update Task</h2>
+    <h2>{% trans "Update Task" %}</h2>
     <form onsubmit="updateTask(event)">
-      <input id="upd-id" placeholder="Task ID" required>
-      <input id="upd-title" placeholder="New Title">
-      <input id="upd-list" placeholder="New List ID">
-      <input id="upd-due" type="date" placeholder="New Due Date">
-      <button type="submit">Update</button>
+      <input id="upd-id" placeholder="{% trans "Task ID" %}" required>
+      <input id="upd-title" placeholder="{% trans "New Title" %}">
+      <input id="upd-list" placeholder="{% trans "New List ID" %}">
+      <input id="upd-due" type="date" placeholder="{% trans "New Due Date" %}">
+      <button type="submit">{% trans "Update" %}</button>
     </form>
     <div id="update-response" class="response"></div>
   </section>
 
   <section>
-    <h2>Delete Task</h2>
+    <h2>{% trans "Delete Task" %}</h2>
     <form onsubmit="deleteTask(event)">
-      <input id="del-id" placeholder="Task ID" required>
-      <button type="submit">Delete</button>
+      <input id="del-id" placeholder="{% trans "Task ID" %}" required>
+      <button type="submit">{% trans "Delete" %}</button>
     </form>
     <div id="delete-response" class="response"></div>
   </section>

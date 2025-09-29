@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-17 12:28+0330\n"
+"POT-Creation-Date: 2025-09-29 10:15+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: accounts/models.py:9
+#: accounts/models.py:9 templates/accounts/languages_test.html:51
 msgid "English"
 msgstr ""
 
-#: accounts/models.py:9
+#: accounts/models.py:9 templates/accounts/languages_test.html:52
 msgid "Farsi"
 msgstr ""
 
@@ -34,6 +34,23 @@ msgstr ""
 msgid "Preferred language for the user interface"
 msgstr ""
 
+#: accounts/views.py:68
+msgid "Successfully logged out"
+msgstr ""
+
+#: accounts/views.py:70
+msgid "Invalid token"
+msgstr ""
+
+#: accounts/views.py:112
+msgid "preferred_language is required"
+msgstr ""
+
+#: accounts/views.py:117
+#, python-format
+msgid "Invalid language. Allowed: %(allowed)s"
+msgstr ""
+
 #: boards/models.py:10
 msgid "Board Name"
 msgstr ""
@@ -42,31 +59,11 @@ msgstr ""
 msgid "You have reached the maximum number of boards (5)."
 msgstr ""
 
-#: boards/models.py:34
-msgid "Owner"
-msgstr ""
-
-#: boards/models.py:34
-msgid "Member"
-msgstr ""
-
-#: boards/models.py:36
-msgid "Pending"
-msgstr ""
-
-#: boards/models.py:37
-msgid "Accepted"
-msgstr ""
-
-#: boards/models.py:38
-msgid "Rejected"
-msgstr ""
-
-#: boards/models.py:65
+#: boards/models.py:72
 msgid "This board already has maximum number of members (10)."
 msgstr ""
 
-#: boards/models.py:69
+#: boards/models.py:77
 msgid "You have reached the maximum number of board memberships (15)."
 msgstr ""
 
@@ -98,15 +95,19 @@ msgstr ""
 msgid "Invite User to Board"
 msgstr ""
 
-#: boards/templates/boards/invite.html:12
+#: boards/templates/boards/invite.html:12 templates/boards/boards_test.html:45
+#: templates/boards/boards_test.html:53 templates/boards/boards_test.html:63
+#: templates/boards/boards_test.html:71 templates/boards/boards_test.html:79
+#: templates/tasksapp/lists_test.html:75 templates/tasksapp/lists_test.html:84
 msgid "Board ID"
 msgstr ""
 
-#: boards/templates/boards/invite.html:15
+#: boards/templates/boards/invite.html:15 templates/accounts/auth_test.html:85
+#: templates/accounts/auth_test_full.html:36
 msgid "Email"
 msgstr ""
 
-#: boards/templates/boards/invite.html:18
+#: boards/templates/boards/invite.html:18 templates/boards/boards_test.html:81
 msgid "Send Invite"
 msgstr ""
 
@@ -122,19 +123,34 @@ msgstr ""
 msgid "Load Boards"
 msgstr ""
 
-#: boards/views.py:46
+#: boards/views.py:37 boards/views.py:91
 msgid "Email is required"
 msgstr ""
 
-#: boards/views.py:63
+#: boards/views.py:50
+#, python-format
+msgid "%(email)s added as member"
+msgstr ""
+
+#: boards/views.py:52
+#, python-format
+msgid "%(email)s is already a member or invite exists"
+msgstr ""
+
+#: boards/views.py:59
+#, python-format
+msgid "Invitation created for %(email)s"
+msgstr ""
+
+#: boards/views.py:105
 msgid "Invitation sent successfully!"
 msgstr ""
 
-#: boards/views.py:76
+#: boards/views.py:116
 msgid "No pending invite found"
 msgstr ""
 
-#: boards/views.py:81
+#: boards/views.py:121
 msgid "You have joined the board!"
 msgstr ""
 
@@ -142,7 +158,7 @@ msgstr ""
 msgid "List Title"
 msgstr ""
 
-#: tasksapp/models.py:19
+#: tasksapp/models.py:19 templates/tasksapp/tasks_crud_test.html:92
 msgid "Task Title"
 msgstr ""
 
@@ -150,7 +166,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: tasksapp/models.py:21
+#: tasksapp/models.py:21 templates/tasksapp/tasks_crud_test.html:93
 msgid "Due Date"
 msgstr ""
 
@@ -174,10 +190,15 @@ msgstr ""
 
 #: tasksapp/templates/tasksapp/tasks_test.html:9
 #: tasksapp/templates/tasksapp/tasks_test.html:15
+#: templates/tasksapp/tasks_crud_test.html:89
 msgid "Create Task"
 msgstr ""
 
 #: tasksapp/templates/tasksapp/tasks_test.html:11
+#: templates/tasksapp/lists_test.html:94 templates/tasksapp/lists_test.html:103
+#: templates/tasksapp/lists_test.html:113
+#: templates/tasksapp/tasks_crud_test.html:82
+#: templates/tasksapp/tasks_crud_test.html:91
 msgid "List ID"
 msgstr ""
 
@@ -185,8 +206,443 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: tasksapp/views.py:24 tasksapp/views.py:42
+#: tasksapp/views.py:49
+msgid "Board must be provided."
+msgstr ""
+
+#: tasksapp/views.py:53 tasksapp/views.py:89
 msgid "You are not a member of this board."
+msgstr ""
+
+#: tasksapp/views.py:83
+msgid "List is required."
+msgstr ""
+
+#: tasksapp/views.py:109
+msgid "You are not a member of the destination board."
+msgstr ""
+
+#: templates/accounts/auth_test.html:7 templates/home.html:131
+msgid "Auth Test"
+msgstr ""
+
+#: templates/accounts/auth_test.html:80
+msgid "Auth Test Page"
+msgstr ""
+
+#: templates/accounts/auth_test.html:83 templates/accounts/auth_test.html:87
+#: templates/accounts/auth_test_full.html:31
+#: templates/accounts/auth_test_full.html:43
+msgid "Register"
+msgstr ""
+
+#: templates/accounts/auth_test.html:84 templates/accounts/auth_test.html:93
+#: templates/accounts/auth_test_full.html:33
+#: templates/accounts/auth_test_full.html:55
+msgid "Username"
+msgstr ""
+
+#: templates/accounts/auth_test.html:86 templates/accounts/auth_test.html:94
+#: templates/accounts/auth_test_full.html:39
+#: templates/accounts/auth_test_full.html:58
+msgid "Password"
+msgstr ""
+
+#: templates/accounts/auth_test.html:92 templates/accounts/auth_test.html:95
+#: templates/accounts/auth_test_full.html:53
+#: templates/accounts/auth_test_full.html:62
+msgid "Login"
+msgstr ""
+
+#: templates/accounts/auth_test.html:100
+msgid "Profile"
+msgstr ""
+
+#: templates/accounts/auth_test.html:101
+#: templates/accounts/auth_test_full.html:80
+msgid "Get Profile"
+msgstr ""
+
+#: templates/accounts/auth_test.html:106
+msgid "Update Profile"
+msgstr ""
+
+#: templates/accounts/auth_test.html:107
+#: templates/accounts/auth_test_full.html:85
+#: templates/accounts/auth_test_full.html:86
+msgid "First name"
+msgstr ""
+
+#: templates/accounts/auth_test.html:108
+msgid "Preferred language (fa/en)"
+msgstr ""
+
+#: templates/accounts/auth_test.html:109 templates/boards/boards_test.html:56
+#: templates/tasksapp/lists_test.html:105
+#: templates/tasksapp/tasks_crud_test.html:115
+msgid "Update"
+msgstr ""
+
+#: templates/accounts/auth_test.html:114 templates/accounts/auth_test.html:115
+#: templates/accounts/auth_test_full.html:100
+msgid "Logout"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:6
+msgid "Auth Test UI — Register / Login / Profile"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:26
+msgid "Authentication Test UI"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:27
+msgid "Endpoints tested:"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:44
+#: venv/lib/python3.12/site-packages/django/forms/widgets.py:527
+msgid "Clear"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:63
+#: templates/accounts/auth_test_full.html:113
+msgid "Refresh Access"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:78
+msgid "Profile (GET / PATCH)"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:81
+msgid "Load into form"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:88
+#: templates/accounts/auth_test_full.html:89
+msgid "Last name"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:91
+msgid "Preferred language"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:93
+msgid "(no change)"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:99
+msgid "Update Profile (PATCH)"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:104
+msgid "Response (GET):"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:106
+msgid "Response (PATCH):"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:112
+msgid "Notes & Helpers"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:113
+msgid ""
+"Make sure to use trailing slashes in URLs. If your access token expires, "
+"press"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:113
+msgid "to get a new access token using the stored refresh token"
+msgstr ""
+
+#: templates/accounts/auth_test_full.html:114
+msgid "Stored tokens (localStorage):"
+msgstr ""
+
+#: templates/accounts/lang_test.html:7
+msgid "Language test"
+msgstr ""
+
+#: templates/accounts/lang_test.html:10
+msgid "Languages"
+msgstr ""
+
+#: templates/accounts/lang_test.html:11
+msgid "Loading..."
+msgstr ""
+
+#: templates/accounts/lang_test.html:13
+msgid "Set my language"
+msgstr ""
+
+#: templates/accounts/lang_test.html:14
+msgid "e.g. fa or en"
+msgstr ""
+
+#: templates/accounts/lang_test.html:15
+msgid "Set language"
+msgstr ""
+
+#: templates/accounts/languages_test.html:6 templates/home.html:136
+msgid "Languages Test"
+msgstr ""
+
+#: templates/accounts/languages_test.html:46
+msgid "Language API Test"
+msgstr ""
+
+#: templates/accounts/languages_test.html:48
+msgid "Update Preferred Language"
+msgstr ""
+
+#: templates/accounts/languages_test.html:54
+msgid "Update Language"
+msgstr ""
+
+#: templates/boards/boards_test.html:6 templates/boards/boards_test.html:21
+msgid "Boards Test UI"
+msgstr ""
+
+#: templates/boards/boards_test.html:22
+msgid "Make sure you are logged in and have a valid"
+msgstr ""
+
+#: templates/boards/boards_test.html:22
+msgid "token stored in localStorage (from Auth Test UI)."
+msgstr ""
+
+#: templates/boards/boards_test.html:26
+msgid "List Boards (GET /api/boards/)"
+msgstr ""
+
+#: templates/boards/boards_test.html:27
+msgid "Get Boards"
+msgstr ""
+
+#: templates/boards/boards_test.html:33
+msgid "Create Board (POST /api/boards/)"
+msgstr ""
+
+#: templates/boards/boards_test.html:35
+msgid "Board name"
+msgstr ""
+
+#: templates/boards/boards_test.html:36
+msgid "Color (optional)"
+msgstr ""
+
+#: templates/boards/boards_test.html:37
+msgid "Create Board"
+msgstr ""
+
+#: templates/boards/boards_test.html:44
+#, python-brace-format
+msgid "Board Details (GET /api/boards/{id}/)"
+msgstr ""
+
+#: templates/boards/boards_test.html:46 templates/tasksapp/lists_test.html:95
+#: templates/tasksapp/tasks_crud_test.html:103
+msgid "Get Details"
+msgstr ""
+
+#: templates/boards/boards_test.html:52
+#, python-brace-format
+msgid "Update Board (PATCH /api/boards/{id}/)"
+msgstr ""
+
+#: templates/boards/boards_test.html:54
+msgid "New name"
+msgstr ""
+
+#: templates/boards/boards_test.html:55
+msgid "New color"
+msgstr ""
+
+#: templates/boards/boards_test.html:62
+#, python-brace-format
+msgid "Delete Board (DELETE /api/boards/{id}/)"
+msgstr ""
+
+#: templates/boards/boards_test.html:64 templates/tasksapp/lists_test.html:114
+#: templates/tasksapp/tasks_crud_test.html:124
+#: venv/lib/python3.12/site-packages/django/forms/formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: templates/boards/boards_test.html:70
+#, python-brace-format
+msgid "Board Members (GET /api/boards/{id}/members/)"
+msgstr ""
+
+#: templates/boards/boards_test.html:72
+msgid "Get Members"
+msgstr ""
+
+#: templates/boards/boards_test.html:78
+#, python-brace-format
+msgid "Send Invitation (POST /api/boards/{id}/invite/)"
+msgstr ""
+
+#: templates/boards/boards_test.html:80
+msgid "Invitee email"
+msgstr ""
+
+#: templates/boards/invitations_test.html:6 templates/home.html:133
+msgid "Invitations Test"
+msgstr ""
+
+#: templates/boards/invitations_test.html:46
+msgid "Invitations Test Page"
+msgstr ""
+
+#: templates/boards/invitations_test.html:49
+msgid "List Invitations"
+msgstr ""
+
+#: templates/boards/invitations_test.html:50
+msgid "Get My Invitations"
+msgstr ""
+
+#: templates/boards/invitations_test.html:55
+#: templates/boards/invitations_test.html:62
+msgid "Update Invitation"
+msgstr ""
+
+#: templates/boards/invitations_test.html:57
+msgid "Invitation ID"
+msgstr ""
+
+#: templates/boards/invitations_test.html:59
+msgid "Accept"
+msgstr ""
+
+#: templates/boards/invitations_test.html:60
+msgid "Reject"
+msgstr ""
+
+#: templates/home.html:7
+msgid "Mini Trello"
+msgstr ""
+
+#: templates/home.html:127
+msgid "Welcome to Mini Trello 🚀"
+msgstr ""
+
+#: templates/home.html:128
+msgid "Quick links for developing and testing features"
+msgstr ""
+
+#: templates/home.html:130
+msgid "API Docs (Swagger)"
+msgstr ""
+
+#: templates/home.html:130
+msgid "API"
+msgstr ""
+
+#: templates/home.html:132
+msgid "Boards Test"
+msgstr ""
+
+#: templates/home.html:134 templates/tasksapp/lists_test.html:6
+msgid "Lists Test"
+msgstr ""
+
+#: templates/home.html:135
+msgid "Tasks CRUD Test"
+msgstr ""
+
+#: templates/home.html:138
+msgid "Made with ❤️ for fast iteration"
+msgstr ""
+
+#: templates/tasksapp/lists_test.html:70
+msgid "Lists Test Page"
+msgstr ""
+
+#: templates/tasksapp/lists_test.html:73
+msgid "Get Lists in Board"
+msgstr ""
+
+#: templates/tasksapp/lists_test.html:76
+msgid "Get Lists"
+msgstr ""
+
+#: templates/tasksapp/lists_test.html:82
+msgid "Create List"
+msgstr ""
+
+#: templates/tasksapp/lists_test.html:85
+msgid "List Name"
+msgstr ""
+
+#: templates/tasksapp/lists_test.html:86
+#: templates/tasksapp/tasks_crud_test.html:94
+msgid "Create"
+msgstr ""
+
+#: templates/tasksapp/lists_test.html:92
+msgid "Get List Details"
+msgstr ""
+
+#: templates/tasksapp/lists_test.html:101
+msgid "Update List"
+msgstr ""
+
+#: templates/tasksapp/lists_test.html:104
+msgid "New List Name"
+msgstr ""
+
+#: templates/tasksapp/lists_test.html:111
+msgid "Delete List"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:6
+msgid "Tasks Test"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:77
+msgid "Tasks Test Page"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:80
+msgid "Get Tasks in List"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:83
+msgid "Get Tasks"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:100
+msgid "Get Task Details"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:102
+#: templates/tasksapp/tasks_crud_test.html:111
+#: templates/tasksapp/tasks_crud_test.html:123
+msgid "Task ID"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:109
+msgid "Update Task"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:112
+msgid "New Title"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:113
+msgid "New List ID"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:114
+msgid "New Due Date"
+msgstr ""
+
+#: templates/tasksapp/tasks_crud_test.html:121
+msgid "Delete Task"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/click/_termui_impl.py:600
@@ -1053,10 +1509,6 @@ msgid_plural "Please submit at least %(num)d forms."
 msgstr[0] ""
 msgstr[1] ""
 
-#: venv/lib/python3.12/site-packages/django/forms/formsets.py:499
-msgid "Delete"
-msgstr ""
-
 #: venv/lib/python3.12/site-packages/django/forms/models.py:901
 #, python-format
 msgid "Please correct the duplicate data for %(field)s."
@@ -1096,10 +1548,6 @@ msgstr ""
 msgid ""
 "%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
 "may be ambiguous or it may not exist."
-msgstr ""
-
-#: venv/lib/python3.12/site-packages/django/forms/widgets.py:527
-msgid "Clear"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:528

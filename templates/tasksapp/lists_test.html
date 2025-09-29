@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lists Test</title>
+  {% load i18n %}
+  <title>{% trans "Lists Test" %}</title>
   <style>
     body { font-family: sans-serif; max-width: 700px; margin: 2rem auto; }
     section { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; }
@@ -66,51 +67,51 @@
   </script>
 </head>
 <body>
-  <h1>Lists Test Page</h1>
+  <h1>{% trans "Lists Test Page" %}</h1>
 
   <section>
-    <h2>Get Lists in Board</h2>
+    <h2>{% trans "Get Lists in Board" %}</h2>
     <form onsubmit="getLists(event)">
-      <input id="board-id" placeholder="Board ID" required>
-      <button type="submit">Get Lists</button>
+      <input id="board-id" placeholder="{% trans "Board ID" %}" required>
+      <button type="submit">{% trans "Get Lists" %}</button>
     </form>
     <div id="list-response" class="response"></div>
   </section>
 
   <section>
-    <h2>Create List</h2>
+    <h2>{% trans "Create List" %}</h2>
     <form onsubmit="createList(event)">
-      <input id="create-board-id" placeholder="Board ID" required>
-      <input id="list-name" placeholder="List Name" required>
-      <button type="submit">Create</button>
+      <input id="create-board-id" placeholder="{% trans "Board ID" %}" required>
+      <input id="list-name" placeholder="{% trans "List Name" %}" required>
+      <button type="submit">{% trans "Create" %}</button>
     </form>
     <div id="create-response" class="response"></div>
   </section>
 
   <section>
-    <h2>Get List Details</h2>
+    <h2>{% trans "Get List Details" %}</h2>
     <form onsubmit="getListDetail(event)">
-      <input id="detail-id" placeholder="List ID" required>
-      <button type="submit">Get Details</button>
+      <input id="detail-id" placeholder="{% trans "List ID" %}" required>
+      <button type="submit">{% trans "Get Details" %}</button>
     </form>
     <div id="detail-response" class="response"></div>
   </section>
 
   <section>
-    <h2>Update List</h2>
+    <h2>{% trans "Update List" %}</h2>
     <form onsubmit="updateList(event)">
-      <input id="upd-id" placeholder="List ID" required>
-      <input id="upd-name" placeholder="New List Name" required>
-      <button type="submit">Update</button>
+      <input id="upd-id" placeholder="{% trans "List ID" %}" required>
+      <input id="upd-name" placeholder="{% trans "New List Name" %}" required>
+      <button type="submit">{% trans "Update" %}</button>
     </form>
     <div id="update-response" class="response"></div>
   </section>
 
   <section>
-    <h2>Delete List</h2>
+    <h2>{% trans "Delete List" %}</h2>
     <form onsubmit="deleteList(event)">
-      <input id="del-id" placeholder="List ID" required>
-      <button type="submit">Delete</button>
+      <input id="del-id" placeholder="{% trans "List ID" %}" required>
+      <button type="submit">{% trans "Delete" %}</button>
     </form>
     <div id="delete-response" class="response"></div>
   </section>

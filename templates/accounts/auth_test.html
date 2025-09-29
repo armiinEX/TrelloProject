@@ -3,7 +3,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Auth Test</title>
+  {% load i18n %}
+  <title>{% trans "Auth Test" %}</title>
   <style>
     body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; }
     form { margin-bottom: 2rem; padding: 1rem; border: 1px solid #ccc; }
@@ -76,42 +77,42 @@
   </script>
 </head>
 <body>
-  <h1>Auth Test Page</h1>
+  <h1>{% trans "Auth Test Page" %}</h1>
 
   <form onsubmit="registerUser(event)">
-    <h2>Register</h2>
-    <input id="reg-username" placeholder="Username" required>
-    <input id="reg-email" placeholder="Email" type="email" required>
-    <input id="reg-password" placeholder="Password" type="password" required>
-    <button type="submit">Register</button>
+    <h2>{% trans "Register" %}</h2>
+    <input id="reg-username" placeholder="{% trans "Username" %}" required>
+    <input id="reg-email" placeholder="{% trans "Email" %}" type="email" required>
+    <input id="reg-password" placeholder="{% trans "Password" %}" type="password" required>
+    <button type="submit">{% trans "Register" %}</button>
     <div id="register-response" class="response"></div>
   </form>
 
   <form onsubmit="loginUser(event)">
-    <h2>Login</h2>
-    <input id="login-username" placeholder="Username" required>
-    <input id="login-password" placeholder="Password" type="password" required>
-    <button type="submit">Login</button>
+    <h2>{% trans "Login" %}</h2>
+    <input id="login-username" placeholder="{% trans "Username" %}" required>
+    <input id="login-password" placeholder="{% trans "Password" %}" type="password" required>
+    <button type="submit">{% trans "Login" %}</button>
     <div id="login-response" class="response"></div>
   </form>
 
   <section>
-    <h2>Profile</h2>
-    <button onclick="getProfile()">Get Profile</button>
+    <h2>{% trans "Profile" %}</h2>
+    <button onclick="getProfile()">{% trans "Get Profile" %}</button>
     <div id="profile-response" class="response"></div>
   </section>
 
   <form onsubmit="updateProfile(event)">
-    <h2>Update Profile</h2>
-    <input id="upd-first" placeholder="First name">
-    <input id="upd-lang" placeholder="Preferred language (fa/en)">
-    <button type="submit">Update</button>
+    <h2>{% trans "Update Profile" %}</h2>
+    <input id="upd-first" placeholder="{% trans "First name" %}">
+    <input id="upd-lang" placeholder="{% trans "Preferred language (fa/en)" %}">
+    <button type="submit">{% trans "Update" %}</button>
     <div id="update-response" class="response"></div>
   </form>
 
   <section>
-    <h2>Logout</h2>
-    <button onclick="logoutUser()">Logout</button>
+    <h2>{% trans "Logout" %}</h2>
+    <button onclick="logoutUser()">{% trans "Logout" %}</button>
     <div id="logout-response" class="response"></div>
   </section>
 </body>

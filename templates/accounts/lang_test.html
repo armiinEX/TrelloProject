@@ -3,15 +3,16 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Language test</title>
+  {% load i18n %}
+  <title>{% trans "Language test" %}</title>
 </head>
 <body>
-  <h1>Languages</h1>
-  <div id="langs">Loading...</div>
+  <h1>{% trans "Languages" %}</h1>
+  <div id="langs">{% trans "Loading..." %}</div>
 
-  <h2>Set my language</h2>
-  <input id="lang-input" placeholder="e.g. fa or en">
-  <button onclick="setLang()">Set language</button>
+  <h2>{% trans "Set my language" %}</h2>
+  <input id="lang-input" placeholder="{% trans "e.g. fa or en" %}">
+  <button onclick="setLang()">{% trans "Set language" %}</button>
   <pre id="result"></pre>
 
   <script>

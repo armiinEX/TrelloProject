@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mini Trello</title>
+    {% load i18n %}
+    <title>{% trans "Mini Trello" %}</title>
     <style>
         :root {
             --bg-start: #0ea5e9;
@@ -123,18 +124,18 @@
 <body>
     <div class="container">
         <div class="card">
-            <h1>Welcome to Mini Trello 🚀</h1>
-            <p class="subtitle">Quick links for developing and testing features</p>
+            <h1>{% trans "Welcome to Mini Trello 🚀" %}</h1>
+            <p class="subtitle">{% trans "Quick links for developing and testing features" %}</p>
             <ul>
-                <li><a href="/api/docs/">API Docs (Swagger) <span class="tag">API</span></a></li>
-                <li><a href="/api/accounts/auth/test-ui/">Auth Test</a></li>
-                <li><a href="/en/boards/boards-test/">Boards Test</a></li>
-                <li><a href="/en/boards/invitations-test/">Invitations Test</a></li>
-                <li><a href="/tasksapp/lists-test/">Lists Test</a></li>
-                <li><a href="/tasksapp/tasks-crud-test/">Tasks CRUD Test</a></li>
-                <li><a href="/api/accounts/auth/languages-test/">Languages Test</a></li>
+                <li><a href="/api/docs/">{% trans "API Docs (Swagger)" %} <span class="tag">{% trans "API" %}</span></a></li>
+                <li><a href="/api/accounts/auth/test-ui/">{% trans "Auth Test" %}</a></li>
+                <li><a href="/en/boards/boards-test/">{% trans "Boards Test" %}</a></li>
+                <li><a href="/en/boards/invitations-test/">{% trans "Invitations Test" %}</a></li>
+                <li><a href="/tasksapp/lists-test/">{% trans "Lists Test" %}</a></li>
+                <li><a href="/tasksapp/tasks-crud-test/">{% trans "Tasks CRUD Test" %}</a></li>
+                <li><a href="/api/accounts/auth/languages-test/">{% trans "Languages Test" %}</a></li>
             </ul>
-            <footer>Made with ❤️ for fast iteration</footer>
+            <footer>{% trans "Made with ❤️ for fast iteration" %}</footer>
         </div>
     </div>
 </body>

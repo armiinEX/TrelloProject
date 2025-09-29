@@ -46,11 +46,11 @@ class ListViewSet(viewsets.ModelViewSet):
             # fallback: client provided board in payload
             board = serializer.validated_data.get("board")
             if board is None:
-                raise PermissionDenied("Board must be provided.")
+                raise PermissionDenied(_("Board must be provided."))
 
         # permission: only owner or accepted member can create lists
         if not (board.owner == self.request.user or board.memberships.filter(user=self.request.user, status="accepted").exists()):
-            raise PermissionDenied("You are not a member of this board.")
+            raise PermissionDenied(_("You are not a member of this board."))
 
         # save the list, ensure board is set
         serializer.save(board=board)
@@ -80,13 +80,13 @@ class TaskViewSet(viewsets.ModelViewSet):
         else:
             lst = serializer.validated_data.get("list")
             if not lst:
-                raise ValidationError({"list": "List is required."})
+                raise ValidationError({"list": _("List is required.")})
 
         board = lst.board
         is_owner = (board.owner == self.request.user)
         is_member = board.memberships.filter(user=self.request.user, status="accepted").exists()
         if not (is_owner or is_member):
-            raise PermissionDenied("You are not a member of this board.")
+            raise PermissionDenied(_("You are not a member of this board."))
 
         serializer.save(list=lst)
 
@@ -106,7 +106,7 @@ class TaskViewSet(viewsets.ModelViewSet):
             is_owner = (board.owner == request.user)
             is_member = board.memberships.filter(user=request.user, status="accepted").exists()
             if not (is_owner or is_member):
-                return Response({"detail": "You are not a member of the destination board."}, status=status.HTTP_403_FORBIDDEN)
+                return Response({"detail": _("You are not a member of the destination board.")}, status=status.HTTP_403_FORBIDDEN)
             task.list = new_list
 
         task.order = new_order

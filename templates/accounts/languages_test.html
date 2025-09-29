@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Languages Test</title>
+  {% load i18n %}
+  <title>{% trans "Languages Test" %}</title>
   <style>
     body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; }
     section { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; }
@@ -42,15 +43,15 @@
   </script>
 </head>
 <body>
-  <h1>Language API Test</h1>
+  <h1>{% trans "Language API Test" %}</h1>
   <section>
-    <h2>Update Preferred Language</h2>
+    <h2>{% trans "Update Preferred Language" %}</h2>
     <form onsubmit="updateLanguage(event)">
       <select id="new-lang">
-        <option value="en">English</option>
-        <option value="fa">Farsi</option>
+        <option value="en">{% trans "English" %}</option>
+        <option value="fa">{% trans "Farsi" %}</option>
       </select>
-      <button type="submit">Update Language</button>
+      <button type="submit">{% trans "Update Language" %}</button>
     </form>
     <div id="update-response" class="response"></div>
   </section>

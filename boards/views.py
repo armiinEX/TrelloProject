@@ -1,7 +1,7 @@
 # boards/views.py
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.decorators import action, api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -34,7 +34,7 @@ class BoardViewSet(viewsets.ModelViewSet):
         board = self.get_object()
         email = request.data.get("email")
         if not email:
-            return Response({"error": "Email is required"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": _("Email is required")}, status=status.HTTP_400_BAD_REQUEST)
 
         from django.contrib.auth import get_user_model
         User = get_user_model()
@@ -47,16 +47,16 @@ class BoardViewSet(viewsets.ModelViewSet):
                 defaults={"role": "member", "status": "accepted"}
             )
             if created:
-                msg = f"{email} added as member"
+                msg = _("%(email)s added as member") % {"email": email}
             else:
-                msg = f"{email} is already a member or invite exists"
+                msg = _("%(email)s is already a member or invite exists") % {"email": email}
         else:
             membership, created = BoardMembership.objects.get_or_create(
                 board=board,
                 invited_email=email,
                 defaults={"user": None, "status": "pending", "role": "member"}
             )
-            msg = f"Invitation created for {email}"
+            msg = _("Invitation created for %(email)s") % {"email": email}
 
         invite_link = request.build_absolute_uri(reverse("boards:accept-invite", args=[board.id]))
         try:

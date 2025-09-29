@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Auth Test UI — Register / Login / Profile</title>
+  {% load i18n %}
+  <title>{% trans "Auth Test UI — Register / Login / Profile" %}</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; max-width: 900px; margin: 2rem auto; padding: 0 1rem; color:#111; }
@@ -22,25 +23,25 @@
   </style>
 </head>
 <body>
-  <h1>Authentication Test UI</h1>
-  <p class="small">Endpoints tested: <code>/api/accounts/auth/register/</code>, <code>/api/accounts/auth/login/</code>, <code>/api/accounts/auth/logout/</code>, <code>/api/accounts/me/</code>, <code>/api/accounts/auth/refresh/</code>.</p>
+  <h1>{% trans "Authentication Test UI" %}</h1>
+  <p class="small">{% trans "Endpoints tested:" %} <code>/api/accounts/auth/register/</code>, <code>/api/accounts/auth/login/</code>, <code>/api/accounts/auth/logout/</code>, <code>/api/accounts/me/</code>, <code>/api/accounts/auth/refresh/</code>.</p>
 
   <!-- REGISTER -->
   <section>
-    <h2>Register</h2>
+    <h2>{% trans "Register" %}</h2>
     <form id="register-form">
-      <label>Username
+      <label>{% trans "Username" %}
         <input id="reg-username" required placeholder="username">
       </label>
-      <label>Email
+      <label>{% trans "Email" %}
         <input id="reg-email" type="email" required placeholder="you@example.com">
       </label>
-      <label>Password
+      <label>{% trans "Password" %}
         <input id="reg-password" type="password" required placeholder="password">
       </label>
       <div style="margin-top:.6rem;">
-        <button type="submit">Register</button>
-        <button type="button" class="secondary" onclick="clearResponses()">Clear</button>
+        <button type="submit">{% trans "Register" %}</button>
+        <button type="button" class="secondary" onclick="clearResponses()">{% trans "Clear" %}</button>
       </div>
     </form>
     <div class="small">Response:</div>
@@ -49,17 +50,17 @@
 
   <!-- LOGIN -->
   <section>
-    <h2>Login</h2>
+    <h2>{% trans "Login" %}</h2>
     <form id="login-form">
-      <label>Username
+      <label>{% trans "Username" %}
         <input id="login-username" required placeholder="username">
       </label>
-      <label>Password
+      <label>{% trans "Password" %}
         <input id="login-password" type="password" required placeholder="password">
       </label>
       <div style="margin-top:.6rem;">
-        <button type="submit">Login</button>
-        <button type="button" class="secondary" onclick="tryRefresh()">Refresh Access</button>
+        <button type="submit">{% trans "Login" %}</button>
+        <button type="button" class="secondary" onclick="tryRefresh()">{% trans "Refresh Access" %}</button>
       </div>
     </form>
 
@@ -74,43 +75,43 @@
 
   <!-- PROFILE -->
   <section>
-    <h2>Profile (GET / PATCH)</h2>
+    <h2>{% trans "Profile (GET / PATCH)" %}</h2>
     <div style="display:flex; gap:.6rem; margin-bottom:.6rem;">
-      <button onclick="getProfile()">Get Profile</button>
-      <button onclick="loadProfileToForm()" class="secondary">Load into form</button>
+      <button onclick="getProfile()">{% trans "Get Profile" %}</button>
+      <button onclick="loadProfileToForm()" class="secondary">{% trans "Load into form" %}</button>
     </div>
 
     <form id="profile-form">
-      <label>First name
-        <input id="profile-first" placeholder="First name">
+      <label>{% trans "First name" %}
+        <input id="profile-first" placeholder="{% trans "First name" %}">
       </label>
-      <label>Last name
-        <input id="profile-last" placeholder="Last name">
+      <label>{% trans "Last name" %}
+        <input id="profile-last" placeholder="{% trans "Last name" %}">
       </label>
-      <label>Preferred language
+      <label>{% trans "Preferred language" %}
         <select id="profile-lang">
-          <option value="">(no change)</option>
+          <option value="">{% trans "(no change)" %}</option>
           <option value="en">en</option>
           <option value="fa">fa</option>
         </select>
       </label>
       <div style="margin-top:.6rem;">
-        <button type="submit">Update Profile (PATCH)</button>
-        <button type="button" class="secondary" onclick="logoutUser()">Logout</button>
+        <button type="submit">{% trans "Update Profile (PATCH)" %}</button>
+        <button type="button" class="secondary" onclick="logoutUser()">{% trans "Logout" %}</button>
       </div>
     </form>
 
-    <div class="small">Response (GET):</div>
+    <div class="small">{% trans "Response (GET):" %}</div>
     <pre id="profile-res" class="response"></pre>
-    <div class="small">Response (PATCH):</div>
+    <div class="small">{% trans "Response (PATCH):" %}</div>
     <pre id="profile-update-res" class="response"></pre>
   </section>
 
   <!-- NOTES / helper -->
   <section>
-    <h2>Notes & Helpers</h2>
-    <p class="small">Make sure to use trailing slashes in URLs. If your access token expires, press <strong>Refresh Access</strong> to get a new access token using the stored refresh token (<code>/api/accounts/auth/refresh/</code>).</p>
-    <div class="small">Stored tokens (localStorage):</div>
+    <h2>{% trans "Notes & Helpers" %}</h2>
+    <p class="small">{% trans "Make sure to use trailing slashes in URLs. If your access token expires, press" %} <strong>{% trans "Refresh Access" %}</strong> {% trans "to get a new access token using the stored refresh token" %} (<code>/api/accounts/auth/refresh/</code>).</p>
+    <div class="small">{% trans "Stored tokens (localStorage):" %}</div>
     <pre id="ls-content" class="response"></pre>
   </section>
 

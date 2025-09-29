@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Boards Test UI</title>
+  {% load i18n %}
+  <title>{% trans "Boards Test UI" %}</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; max-width: 900px; margin: 2rem auto; padding: 1rem; }
@@ -17,67 +18,67 @@
   </style>
 </head>
 <body>
-  <h1>Boards Test UI</h1>
-  <p>Make sure you are logged in and have a valid <code>access</code> token stored in localStorage (from Auth Test UI).</p>
+  <h1>{% trans "Boards Test UI" %}</h1>
+  <p>{% trans "Make sure you are logged in and have a valid" %} <code>access</code> {% trans "token stored in localStorage (from Auth Test UI)." %}</p>
 
   <!-- List Boards -->
   <section>
-    <h2>List Boards (GET /api/boards/)</h2>
-    <button onclick="listBoards()">Get Boards</button>
+    <h2>{% trans "List Boards (GET /api/boards/)" %}</h2>
+    <button onclick="listBoards()">{% trans "Get Boards" %}</button>
     <pre id="boards-list-res"></pre>
   </section>
 
   <!-- Create Board -->
   <section>
-    <h2>Create Board (POST /api/boards/)</h2>
+    <h2>{% trans "Create Board (POST /api/boards/)" %}</h2>
     <form id="create-board-form">
-      <input id="board-name" placeholder="Board name" required />
-      <input id="board-color" placeholder="Color (optional)" />
-      <button type="submit">Create Board</button>
+      <input id="board-name" placeholder="{% trans "Board name" %}" required />
+      <input id="board-color" placeholder="{% trans "Color (optional)" %}" />
+      <button type="submit">{% trans "Create Board" %}</button>
     </form>
     <pre id="create-board-res"></pre>
   </section>
 
   <!-- Board Details -->
   <section>
-    <h2>Board Details (GET /api/boards/{id}/)</h2>
-    <input id="board-id-detail" placeholder="Board ID" />
-    <button onclick="getBoard()">Get Details</button>
+    <h2>{% trans "Board Details (GET /api/boards/{id}/)" %}</h2>
+    <input id="board-id-detail" placeholder="{% trans "Board ID" %}" />
+    <button onclick="getBoard()">{% trans "Get Details" %}</button>
     <pre id="board-detail-res"></pre>
   </section>
 
   <!-- Update Board -->
   <section>
-    <h2>Update Board (PATCH /api/boards/{id}/)</h2>
-    <input id="board-id-update" placeholder="Board ID" />
-    <input id="board-new-name" placeholder="New name" />
-    <input id="board-new-color" placeholder="New color" />
-    <button onclick="updateBoard()">Update</button>
+    <h2>{% trans "Update Board (PATCH /api/boards/{id}/)" %}</h2>
+    <input id="board-id-update" placeholder="{% trans "Board ID" %}" />
+    <input id="board-new-name" placeholder="{% trans "New name" %}" />
+    <input id="board-new-color" placeholder="{% trans "New color" %}" />
+    <button onclick="updateBoard()">{% trans "Update" %}</button>
     <pre id="board-update-res"></pre>
   </section>
 
   <!-- Delete Board -->
   <section>
-    <h2>Delete Board (DELETE /api/boards/{id}/)</h2>
-    <input id="board-id-delete" placeholder="Board ID" />
-    <button onclick="deleteBoard()">Delete</button>
+    <h2>{% trans "Delete Board (DELETE /api/boards/{id}/)" %}</h2>
+    <input id="board-id-delete" placeholder="{% trans "Board ID" %}" />
+    <button onclick="deleteBoard()">{% trans "Delete" %}</button>
     <pre id="board-delete-res"></pre>
   </section>
 
   <!-- Members -->
   <section>
-    <h2>Board Members (GET /api/boards/{id}/members/)</h2>
-    <input id="board-id-members" placeholder="Board ID" />
-    <button onclick="getMembers()">Get Members</button>
+    <h2>{% trans "Board Members (GET /api/boards/{id}/members/)" %}</h2>
+    <input id="board-id-members" placeholder="{% trans "Board ID" %}" />
+    <button onclick="getMembers()">{% trans "Get Members" %}</button>
     <pre id="board-members-res"></pre>
   </section>
 
   <!-- Invite -->
   <section>
-    <h2>Send Invitation (POST /api/boards/{id}/invite/)</h2>
-    <input id="board-id-invite" placeholder="Board ID" />
-    <input id="invite-email" type="email" placeholder="Invitee email" />
-    <button onclick="sendInvite()">Send Invite</button>
+    <h2>{% trans "Send Invitation (POST /api/boards/{id}/invite/)" %}</h2>
+    <input id="board-id-invite" placeholder="{% trans "Board ID" %}" />
+    <input id="invite-email" type="email" placeholder="{% trans "Invitee email" %}" />
+    <button onclick="sendInvite()">{% trans "Send Invite" %}</button>
     <pre id="board-invite-res"></pre>
   </section>
 

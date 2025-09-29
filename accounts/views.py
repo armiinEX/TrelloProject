@@ -18,6 +18,7 @@ from .serializers import RegisterSerializer, UserSerializer
 from django.utils import translation
 from .serializers import UserProfileSerializer
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -64,9 +65,9 @@ def logout_view(request):
             from rest_framework_simplejwt.tokens import RefreshToken
             token = RefreshToken(refresh_token)
             token.blacklist()
-        return Response({"message": "Successfully logged out"}, status=status.HTTP_205_RESET_CONTENT)
+        return Response({"message": _("Successfully logged out")}, status=status.HTTP_205_RESET_CONTENT)
     except Exception:
-        return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": _("Invalid token")}, status=status.HTTP_400_BAD_REQUEST)
 
 # 4) Profile GET / PATCH
 class ProfileView(APIView):
@@ -108,12 +109,12 @@ class UserLanguageUpdateView(APIView):
     def patch(self, request):
         lang = request.data.get("preferred_language") or request.data.get("language")
         if not lang:
-            return Response({"detail": "preferred_language is required"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": _("preferred_language is required")}, status=status.HTTP_400_BAD_REQUEST)
 
         # allowed codes
         allowed = [code for code, _ in getattr(settings, "LANGUAGES", [])]
         if lang not in allowed:
-            return Response({"detail": f"Invalid language. Allowed: {allowed}"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": _("Invalid language. Allowed: %(allowed)s") % {"allowed": allowed}}, status=status.HTTP_400_BAD_REQUEST)
 
         user = request.user
         user.preferred_language = lang

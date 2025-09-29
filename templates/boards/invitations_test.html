@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Invitations Test</title>
+  {% load i18n %}
+  <title>{% trans "Invitations Test" %}</title>
   <style>
     body { font-family: sans-serif; max-width: 700px; margin: 2rem auto; }
     section { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; }
@@ -42,23 +43,23 @@
   </script>
 </head>
 <body>
-  <h1>Invitations Test Page</h1>
+  <h1>{% trans "Invitations Test Page" %}</h1>
 
   <section>
-    <h2>List Invitations</h2>
-    <button onclick="getInvitations()">Get My Invitations</button>
+    <h2>{% trans "List Invitations" %}</h2>
+    <button onclick="getInvitations()">{% trans "Get My Invitations" %}</button>
     <div id="list-response" class="response"></div>
   </section>
 
   <section>
-    <h2>Update Invitation</h2>
+    <h2>{% trans "Update Invitation" %}</h2>
     <form onsubmit="updateInvitation(event)">
-      <input id="inv-id" placeholder="Invitation ID" required>
+      <input id="inv-id" placeholder="{% trans "Invitation ID" %}" required>
       <select id="inv-status">
-        <option value="accepted">Accept</option>
-        <option value="rejected">Reject</option>
+        <option value="accepted">{% trans "Accept" %}</option>
+        <option value="rejected">{% trans "Reject" %}</option>
       </select>
-      <button type="submit">Update Invitation</button>
+      <button type="submit">{% trans "Update Invitation" %}</button>
     </form>
     <div id="update-response" class="response"></div>
   </section>
