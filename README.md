@@ -70,6 +70,10 @@ celery -A core worker -l info
 # Start Django server:
 python manage.py runserver
 
+# Create and compile translations (for Farsi):
+django-admin makemessages -l fa
+django-admin compilemessages
+
 # Default: http://127.0.0.1:8000
 ```
 
