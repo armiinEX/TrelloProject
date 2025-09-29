@@ -61,6 +61,10 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
 
+# Create and compile translations (for Farsi):
+django-admin makemessages -l fa
+django-admin compilemessages
+
 # Run Redis (for Celery tasks):
 docker run -d -p 6379:6379 redis
 
@@ -69,10 +73,6 @@ celery -A core worker -l info
 
 # Start Django server:
 python manage.py runserver
-
-# Create and compile translations (for Farsi):
-django-admin makemessages -l fa
-django-admin compilemessages
 
 # Default: http://127.0.0.1:8000
 ```
